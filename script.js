@@ -1,23 +1,24 @@
-const button = document.getElementById("startBtn");
-const letter = document.getElementById("letter");
-const music = document.getElementById("bgm");
+document.addEventListener("DOMContentLoaded", () => {
+  const startBtn = document.getElementById("startBtn");
+  const letter = document.getElementById("letter");
+  const gallery = document.getElementById("gallery");
+  const bgm = document.getElementById("bgm");
 
-button.addEventListener("click", () => {
-    // Letter ko show karein
-    letter.hidden = false;
+  // Shuruat mein letter aur gallery ko hide karke rakhein
+  letter.classList.add("hidden");
+  gallery.classList.add("hidden");
+
+  startBtn.addEventListener("click", () => {
+    // Hidden class hatakar content dikhayein
+    letter.classList.remove("hidden");
+    gallery.classList.remove("hidden");
     
-    // Smooth scroll karke letter tak le jayein
-    letter.scrollIntoView({ behavior: "smooth" });
-
-    // Background music play karein
-    if (music) {
-        music.play().catch((error) => {
-            console.log("Music play blocked by browser, user needs to click play manually.", error);
-        });
+    // Music play karein
+    if (bgm) {
+      bgm.play().catch(error => console.log("Audio play error:", error));
     }
 
-    // Button text aur style update karein
-    button.textContent = "Happy Birthday Esha ❤️";
-    button.style.backgroundColor = "#ff759d";
-    button.disabled = true;
+    // Button ko hide kar dein
+    startBtn.style.display = "none";
+  });
 });
