@@ -1,191 +1,193 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Audio & Intro Handling
-    const bgMusic = document.getElementById('bg-music');
-    const enterBtn = document.getElementById('enter-btn');
-    const introOverlay = document.getElementById('intro-overlay');
-    const musicWidget = document.getElementById('music-widget');
-    const musicStatus = document.getElementById('music-status');
-    let isPlaying = false;
+/* ==========================================================================
+  1. AUDIO & INTRO MANAGEMENT
+  ========================================================================== */
+const introOverlay = document.getElementById('intro-overlay');
+const bgMusic = document.getElementById('bg-music');
+const musicToggle = document.getElementById('music-toggle');
+let isPlaying = false;
 
-    enterBtn.addEventListener('click', () => {
-        // Auto-skip starting 15 seconds
-        bgMusic.currentTime = 15;
-        
-        bgMusic.play().then(() => {
-            isPlaying = true;
-            musicWidget.classList.remove('paused');
-            musicStatus.textContent = "Sound On";
-        }).catch(() => {
-            isPlaying = false;
-            musicWidget.classList.add('paused');
-            musicStatus.textContent = "Sound Off";
-        });
-
-        introOverlay.classList.add('fade-out');
-    });
-
-    musicWidget.addEventListener('click', () => {
-        if (isPlaying) {
-            bgMusic.pause();
-            musicWidget.classList.add('paused');
-            musicStatus.textContent = "Sound Off";
-            isPlaying = false;
-        } else {
-            bgMusic.play();
-            musicWidget.classList.remove('paused');
-            musicStatus.textContent = "Sound On";
-            isPlaying = true;
-        }
-    });
-
-    // 2. Interactive Candles
-    const candles = document.querySelectorAll('.compact-candle');
-    const cakeStatus = document.getElementById('cake-status');
-    let extinguishedCount = 0;
-
-    candles.forEach(candle => {
-        candle.addEventListener('click', () => {
-            if (!candle.classList.contains('extinguished')) {
-                candle.classList.add('extinguished');
-                extinguishedCount++;
-
-                if (extinguishedCount === candles.length) {
-                    cakeStatus.textContent = "✨ Wishes Sent! Happy Birthday Esha! ✨";
-                    cakeStatus.style.color = "var(--gold-light)";
-                    triggerGoldConfetti();
-                }
-            }
-        });
-    });
-
-    // 3. Lightbox Navigation
-    const galleryCards = document.querySelectorAll('.gallery-card');
-    const lightbox = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lb-img');
-    const lbClose = document.getElementById('lb-close');
-    const lbPrev = document.getElementById('lb-prev');
-    const lbNext = document.getElementById('lb-next');
-
-    const sources = Array.from(galleryCards).map(card => card.querySelector('img').src);
-    let currentIndex = 0;
-
-    galleryCards.forEach(card => {
-        card.addEventListener('click', () => {
-            currentIndex = parseInt(card.dataset.index);
-            lbImg.src = sources[currentIndex];
-            lightbox.classList.add('active');
-        });
-    });
-
-    const closeLB = () => lightbox.classList.remove('active');
-    lbClose.addEventListener('click', closeLB);
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLB(); });
-
-    lbPrev.addEventListener('click', (e) => {
-        e.stopPropagation();
-        currentIndex = (currentIndex - 1 + sources.length) % sources.length;
-        lbImg.src = sources[currentIndex];
-    });
-
-    lbNext.addEventListener('click', (e) => {
-        e.stopPropagation();
-        currentIndex = (currentIndex + 1) % sources.length;
-        lbImg.src = sources[currentIndex];
-    });
-
-    // 4. Ambient Sparkles Animation
-    const sCanvas = document.getElementById('sparkles-canvas');
-    const sCtx = sCanvas.getContext('2d');
-    let sparkles = [];
-
-    function resizeSparkles() {
-        sCanvas.width = window.innerWidth;
-        sCanvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeSparkles);
-    resizeSparkles();
-
-    class Sparkle {
-        constructor() {
-            this.reset();
-        }
-        reset() {
-            this.x = Math.random() * sCanvas.width;
-            this.y = Math.random() * sCanvas.height;
-            this.size = Math.random() * 1.5 + 0.5;
-            this.alpha = Math.random();
-            this.speed = Math.random() * 0.01 + 0.005;
-        }
-        update() {
-            this.alpha += this.speed;
-            if (this.alpha > 1 || this.alpha < 0) this.speed = -this.speed;
-        }
-        draw() {
-            sCtx.fillStyle = `rgba(212, 175, 55, ${Math.abs(this.alpha) * 0.6})`;
-            sCtx.beginPath();
-            sCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            sCtx.fill();
-        }
-    }
-
-    for (let i = 0; i < 60; i++) sparkles.push(new Sparkle());
-
-    function animateSparkles() {
-        sCtx.clearRect(0, 0, sCanvas.width, sCanvas.height);
-        sparkles.forEach(s => { s.update(); s.draw(); });
-        requestAnimationFrame(animateSparkles);
-    }
-    animateSparkles();
-
-    // 5. Champagne Confetti Particle System
-    const cCanvas = document.getElementById('confetti-canvas');
-    const cCtx = cCanvas.getContext('2d');
-    let confetti = [];
-
-    function resizeConfetti() {
-        cCanvas.width = window.innerWidth;
-        cCanvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeConfetti);
-    resizeConfetti();
-
-    class Confetti {
-        constructor() {
-            this.x = Math.random() * cCanvas.width;
-            this.y = -10;
-            this.size = Math.random() * 6 + 4;
-            this.color = ['#D4AF37', '#F7E7CE', '#ffffff', '#e05286'][Math.floor(Math.random() * 4)];
-            this.speedY = Math.random() * 2.5 + 1.5;
-            this.speedX = Math.random() * 1.5 - 0.75;
-            this.rotation = Math.random() * 360;
-        }
-        update() {
-            this.y += this.speedY;
-            this.x += this.speedX;
-            this.rotation += 2;
-        }
-        draw() {
-            cCtx.save();
-            cCtx.translate(this.x, this.y);
-            cCtx.rotate((this.rotation * Math.PI) / 180);
-            cCtx.fillStyle = this.color;
-            cCtx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
-            cCtx.restore();
-        }
-    }
-
-    function triggerGoldConfetti() {
-        for (let i = 0; i < 100; i++) confetti.push(new Confetti());
-    }
-
-    function animateConfetti() {
-        cCtx.clearRect(0, 0, cCanvas.width, cCanvas.height);
-        confetti.forEach((c, idx) => {
-            c.update();
-            c.draw();
-            if (c.y > cCanvas.height) confetti.splice(idx, 1);
-        });
-        requestAnimationFrame(animateConfetti);
-    }
-    animateConfetti();
+// Tap intro screen to unlock sound and start experience
+introOverlay.addEventListener('click', () => {
+ introOverlay.classList.add('hidden');
+ playAudio();
+ triggerConfettiBurst();
+ spawnBalloons();
 });
+
+function playAudio() {
+ bgMusic.play().then(() => {
+   isPlaying = true;
+   musicToggle.classList.add('playing');
+ }).catch(err => {
+   console.log("Audio playback blocked:", err);
+ });
+}
+
+musicToggle.addEventListener('click', () => {
+ if (isPlaying) {
+   bgMusic.pause();
+   isPlaying = false;
+   musicToggle.classList.remove('playing');
+ } else {
+   playAudio();
+ }
+});
+
+/* ==========================================================================
+  2. CANVAS FLOATING HEARTS & SPARKLES
+  ========================================================================== */
+const canvas = document.getElementById('fx-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resizeCanvas() {
+ canvas.width = window.innerWidth;
+ canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+class Particle {
+ constructor() {
+   this.reset();
+ }
+
+ reset() {
+   this.x = Math.random() * canvas.width;
+   this.y = canvas.height + Math.random() * 100;
+   this.size = Math.random() * 12 + 8;
+   this.speedY = Math.random() * 1.5 + 0.5;
+   this.speedX = Math.sin(Math.random() * Math.PI) * 0.8;
+   this.opacity = Math.random() * 0.6 + 0.3;
+   this.type = Math.random() > 0.4 ? 'heart' : 'sparkle';
+   this.color = `hsla(${Math.random() * 40 + 330}, 100%, 75%, ${this.opacity})`;
+ }
+
+ update() {
+   this.y -= this.speedY;
+   this.x += this.speedX;
+   if (this.y < -20) {
+     this.reset();
+   }
+ }
+
+ draw() {
+   ctx.save();
+   ctx.translate(this.x, this.y);
+   if (this.type === 'heart') {
+     ctx.fillStyle = this.color;
+     ctx.beginPath();
+     ctx.moveTo(0, 0);
+     ctx.bezierCurveTo(-this.size / 2, -this.size / 2, -this.size, this.size / 3, 0, this.size);
+     ctx.bezierCurveTo(this.size, this.size / 3, this.size / 2, -this.size / 2, 0, 0);
+     ctx.fill();
+   } else {
+     ctx.fillStyle = "#fff";
+     ctx.shadowBlur = 10;
+     ctx.shadowColor = "#ffd700";
+     ctx.beginPath();
+     ctx.arc(0, 0, this.size / 3, 0, Math.PI * 2);
+     ctx.fill();
+   }
+   ctx.restore();
+ }
+}
+
+function initParticles() {
+ particles = [];
+ const count = Math.floor(window.innerWidth / 25);
+ for (let i = 0; i < count; i++) {
+   particles.push(new Particle());
+ }
+}
+
+function animateParticles() {
+ ctx.clearRect(0, 0, canvas.width, canvas.height);
+ particles.forEach(p => {
+   p.update();
+   p.draw();
+ });
+ requestAnimationFrame(animateParticles);
+}
+
+initParticles();
+animateParticles();
+
+/* ==========================================================================
+  3. BALLOON GENERATOR
+  ========================================================================== */
+function spawnBalloons() {
+ const container = document.getElementById('balloons');
+ const colors = ['#ff758c', '#ff7eb3', '#fbc2eb', '#a6c1ee', '#fddb92'];
+ 
+ for (let i = 0; i < 15; i++) {
+   const balloon = document.createElement('div');
+   balloon.className = 'balloon';
+   balloon.style.left = `${Math.random() * 95}%`;
+   balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+   balloon.style.animationDelay = `${Math.random() * 8}s`;
+   balloon.style.animationDuration = `${10 + Math.random() * 6}s`;
+   container.appendChild(balloon);
+ }
+}
+
+/* ==========================================================================
+  4. INTERACTIVE CAKE & CANDLE BLOWING
+  ========================================================================== */
+let candleBlown = false;
+function blowCandle() {
+ const flame = document.getElementById('flame');
+ if (!candleBlown) {
+   flame.classList.add('off');
+   candleBlown = true;
+   triggerConfettiBurst();
+ } else {
+   flame.classList.remove('off');
+   candleBlown = false;
+ }
+}
+
+function triggerConfettiBurst() {
+ if (typeof confetti === 'function') {
+   confetti({
+     particleCount: 100,
+     spread: 70,
+     origin: { y: 0.6 }
+   });
+ }
+}
+
+/* ==========================================================================
+  5. LIGHTBOX FUNCTIONALITY
+  ========================================================================== */
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+
+function openLightbox(src) {
+ lightboxImg.src = src;
+ lightbox.classList.add('active');
+}
+
+function closeLightbox() {
+ lightbox.classList.remove('active');
+}
+
+/* ==========================================================================
+  6. SCROLL REVEAL ANIMATIONS
+  ========================================================================== */
+function revealOnScroll() {
+ const reveals = document.querySelectorAll('.reveal');
+ const windowHeight = window.innerHeight;
+
+ reveals.forEach(el => {
+   const elementTop = el.getBoundingClientRect().top;
+   const elementVisible = 100;
+
+   if (elementTop < windowHeight - elementVisible) {
+     el.classList.add('active');
+   }
+ });
+}
+
+window.addEventListener('scroll', revealOnScroll);
+revealOnScroll(); // Trigger initial check
