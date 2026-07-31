@@ -1,247 +1,191 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ==========================================
-    // DOM ELEMENTS
-    // ==========================================
-    const introScreen = document.getElementById('intro-screen');
-    const enterBtn = document.getElementById('enter-btn');
-    const mainContent = document.getElementById('main-content');
+    // 1. Audio & Intro Handling
     const bgMusic = document.getElementById('bg-music');
-    const musicToggle = document.getElementById('music-toggle');
-    const musicIcon = document.getElementById('music-icon');
-    
-    const particlesContainer = document.getElementById('particles-container');
-    const balloonsContainer = document.getElementById('balloons-container');
-    
-    const candles = document.querySelectorAll('.candle');
-    const celebrateBtn = document.getElementById('celebrate-btn');
-    
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxClose = document.querySelector('.lightbox-close');
-    const lightboxPrev = document.getElementById('lightbox-prev');
-    const lightboxNext = document.getElementById('lightbox-next');
-
-    let currentImageIndex = 0;
+    const enterBtn = document.getElementById('enter-btn');
+    const introOverlay = document.getElementById('intro-overlay');
+    const musicWidget = document.getElementById('music-widget');
+    const musicStatus = document.getElementById('music-status');
     let isPlaying = false;
 
-    // Direct Image Sources array for navigation
-    const imageSources = Array.from(galleryItems).map(item => {
-        return item.querySelector('img').getAttribute('src');
-    });
-
-    // ==========================================
-    // MUSIC & INTRO LOGIC (TRIMS STARTING 15s)
-    // ==========================================
     enterBtn.addEventListener('click', () => {
-        // Cut audio starting 15 seconds
+        // Auto-skip starting 15 seconds
         bgMusic.currentTime = 15;
         
         bgMusic.play().then(() => {
             isPlaying = true;
-            musicIcon.textContent = '🎵';
-        }).catch(err => {
-            console.log("Autoplay prevented or audio file missing:", err);
+            musicWidget.classList.remove('paused');
+            musicStatus.textContent = "Sound On";
+        }).catch(() => {
             isPlaying = false;
-            musicIcon.textContent = '🔇';
+            musicWidget.classList.add('paused');
+            musicStatus.textContent = "Sound Off";
         });
 
-        // Hide intro, show main content
-        introScreen.classList.add('fade-out');
-        setTimeout(() => {
-            introScreen.style.display = 'none';
-            mainContent.classList.remove('hidden');
-            initAmbientEffects();
-        }, 1000);
+        introOverlay.classList.add('fade-out');
     });
 
-    musicToggle.addEventListener('click', () => {
+    musicWidget.addEventListener('click', () => {
         if (isPlaying) {
             bgMusic.pause();
-            musicIcon.textContent = '🔇';
+            musicWidget.classList.add('paused');
+            musicStatus.textContent = "Sound Off";
             isPlaying = false;
         } else {
             bgMusic.play();
-            musicIcon.textContent = '🎵';
+            musicWidget.classList.remove('paused');
+            musicStatus.textContent = "Sound On";
             isPlaying = true;
         }
     });
 
-    // ==========================================
-    // AMBIENT PARTICLES & BALLOONS
-    // ==========================================
-    function initAmbientEffects() {
-        createFloatingElements();
-        createBalloons();
-    }
-
-    function createFloatingElements() {
-        const symbols = ['💖', '✨', '🌸', '💫', '💕'];
-        const count = 25;
-
-        for (let i = 0; i < count; i++) {
-            const el = document.createElement('div');
-            el.className = 'floating-element';
-            el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-            
-            el.style.left = `${Math.random() * 100}vw`;
-            el.style.fontSize = `${Math.random() * 1.5 + 0.8}rem`;
-            el.style.animationDuration = `${Math.random() * 10 + 8}s`;
-            el.style.animationDelay = `${Math.random() * 5}s`;
-
-            particlesContainer.appendChild(el);
-        }
-    }
-
-    function createBalloons() {
-        const colors = ['#ff2d75', '#ff758c', '#ffb3c6', '#f3a847', '#e0aaff'];
-        const count = 12;
-
-        for (let i = 0; i < count; i++) {
-            const balloon = document.createElement('div');
-            balloon.className = 'balloon';
-            balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            balloon.style.left = `${Math.random() * 90 + 5}vw`;
-            balloon.style.animationDuration = `${Math.random() * 12 + 10}s`;
-            balloon.style.animationDelay = `${Math.random() * 8}s`;
-
-            balloonsContainer.appendChild(balloon);
-        }
-    }
-
-    // ==========================================
-    // CAKE & CANDLE INTERACTION
-    // ==========================================
-    let blownCandlesCount = 0;
+    // 2. Interactive Candles
+    const candles = document.querySelectorAll('.compact-candle');
+    const cakeStatus = document.getElementById('cake-status');
+    let extinguishedCount = 0;
 
     candles.forEach(candle => {
         candle.addEventListener('click', () => {
-            if (candle.getAttribute('data-lit') === 'true') {
-                candle.setAttribute('data-lit', 'false');
-                blownCandlesCount++;
+            if (!candle.classList.contains('extinguished')) {
+                candle.classList.add('extinguished');
+                extinguishedCount++;
 
-                if (blownCandlesCount === candles.length) {
-                    celebrateBtn.classList.remove('hidden');
-                    triggerConfetti();
+                if (extinguishedCount === candles.length) {
+                    cakeStatus.textContent = "✨ Wishes Sent! Happy Birthday Esha! ✨";
+                    cakeStatus.style.color = "var(--gold-light)";
+                    triggerGoldConfetti();
                 }
             }
         });
     });
 
-    celebrateBtn.addEventListener('click', () => {
-        triggerConfetti();
-    });
+    // 3. Lightbox Navigation
+    const galleryCards = document.querySelectorAll('.gallery-card');
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    const lbClose = document.getElementById('lb-close');
+    const lbPrev = document.getElementById('lb-prev');
+    const lbNext = document.getElementById('lb-next');
 
-    // ==========================================
-    // LIGHTBOX GALLERY
-    // ==========================================
-    galleryItems.forEach((item, index) => {
-        item.addEventListener('click', () => {
-            currentImageIndex = index;
-            openLightbox(imageSources[currentImageIndex]);
+    const sources = Array.from(galleryCards).map(card => card.querySelector('img').src);
+    let currentIndex = 0;
+
+    galleryCards.forEach(card => {
+        card.addEventListener('click', () => {
+            currentIndex = parseInt(card.dataset.index);
+            lbImg.src = sources[currentIndex];
+            lightbox.classList.add('active');
         });
     });
 
-    function openLightbox(src) {
-        lightboxImg.src = src;
-        lightbox.classList.add('active');
-    }
+    const closeLB = () => lightbox.classList.remove('active');
+    lbClose.addEventListener('click', closeLB);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLB(); });
 
-    function closeLightbox() {
-        lightbox.classList.remove('active');
-    }
-
-    lightboxClose.addEventListener('click', closeLightbox);
-
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) {
-            closeLightbox();
-        }
-    });
-
-    lightboxPrev.addEventListener('click', (e) => {
+    lbPrev.addEventListener('click', (e) => {
         e.stopPropagation();
-        currentImageIndex = (currentImageIndex - 1 + imageSources.length) % imageSources.length;
-        lightboxImg.src = imageSources[currentImageIndex];
+        currentIndex = (currentIndex - 1 + sources.length) % sources.length;
+        lbImg.src = sources[currentIndex];
     });
 
-    lightboxNext.addEventListener('click', (e) => {
+    lbNext.addEventListener('click', (e) => {
         e.stopPropagation();
-        currentImageIndex = (currentImageIndex + 1) % imageSources.length;
-        lightboxImg.src = imageSources[currentImageIndex];
+        currentIndex = (currentIndex + 1) % sources.length;
+        lbImg.src = sources[currentIndex];
     });
 
-    // Keyboard controls for Lightbox
-    document.addEventListener('keydown', (e) => {
-        if (!lightbox.classList.contains('active')) return;
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowLeft') lightboxPrev.click();
-        if (e.key === 'ArrowRight') lightboxNext.click();
-    });
+    // 4. Ambient Sparkles Animation
+    const sCanvas = document.getElementById('sparkles-canvas');
+    const sCtx = sCanvas.getContext('2d');
+    let sparkles = [];
 
-    // ==========================================
-    // CONFETTI SYSTEM
-    // ==========================================
-    const canvas = document.getElementById('confetti-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+    function resizeSparkles() {
+        sCanvas.width = window.innerWidth;
+        sCanvas.height = window.innerHeight;
     }
+    window.addEventListener('resize', resizeSparkles);
+    resizeSparkles();
 
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    class ConfettiParticle {
+    class Sparkle {
         constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = -20;
-            this.size = Math.random() * 10 + 5;
-            this.color = ['#ff2d75', '#ff758c', '#f3a847', '#ffffff', '#e0aaff'][Math.floor(Math.random() * 5)];
-            this.speedY = Math.random() * 3 + 2;
-            this.speedX = Math.random() * 2 - 1;
-            this.rotation = Math.random() * 360;
-            this.rotationSpeed = Math.random() * 10 - 5;
+            this.reset();
         }
+        reset() {
+            this.x = Math.random() * sCanvas.width;
+            this.y = Math.random() * sCanvas.height;
+            this.size = Math.random() * 1.5 + 0.5;
+            this.alpha = Math.random();
+            this.speed = Math.random() * 0.01 + 0.005;
+        }
+        update() {
+            this.alpha += this.speed;
+            if (this.alpha > 1 || this.alpha < 0) this.speed = -this.speed;
+        }
+        draw() {
+            sCtx.fillStyle = `rgba(212, 175, 55, ${Math.abs(this.alpha) * 0.6})`;
+            sCtx.beginPath();
+            sCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            sCtx.fill();
+        }
+    }
 
+    for (let i = 0; i < 60; i++) sparkles.push(new Sparkle());
+
+    function animateSparkles() {
+        sCtx.clearRect(0, 0, sCanvas.width, sCanvas.height);
+        sparkles.forEach(s => { s.update(); s.draw(); });
+        requestAnimationFrame(animateSparkles);
+    }
+    animateSparkles();
+
+    // 5. Champagne Confetti Particle System
+    const cCanvas = document.getElementById('confetti-canvas');
+    const cCtx = cCanvas.getContext('2d');
+    let confetti = [];
+
+    function resizeConfetti() {
+        cCanvas.width = window.innerWidth;
+        cCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeConfetti);
+    resizeConfetti();
+
+    class Confetti {
+        constructor() {
+            this.x = Math.random() * cCanvas.width;
+            this.y = -10;
+            this.size = Math.random() * 6 + 4;
+            this.color = ['#D4AF37', '#F7E7CE', '#ffffff', '#e05286'][Math.floor(Math.random() * 4)];
+            this.speedY = Math.random() * 2.5 + 1.5;
+            this.speedX = Math.random() * 1.5 - 0.75;
+            this.rotation = Math.random() * 360;
+        }
         update() {
             this.y += this.speedY;
             this.x += this.speedX;
-            this.rotation += this.rotationSpeed;
+            this.rotation += 2;
         }
-
         draw() {
-            ctx.save();
-            ctx.translate(this.x, this.y);
-            ctx.rotate((this.rotation * Math.PI) / 180);
-            ctx.fillStyle = this.color;
-            ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
-            ctx.restore();
+            cCtx.save();
+            cCtx.translate(this.x, this.y);
+            cCtx.rotate((this.rotation * Math.PI) / 180);
+            cCtx.fillStyle = this.color;
+            cCtx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+            cCtx.restore();
         }
     }
 
-    function triggerConfetti() {
-        for (let i = 0; i < 150; i++) {
-            particles.push(new ConfettiParticle());
-        }
+    function triggerGoldConfetti() {
+        for (let i = 0; i < 100; i++) confetti.push(new Confetti());
     }
 
     function animateConfetti() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        particles.forEach((particle, index) => {
-            particle.update();
-            particle.draw();
-
-            if (particle.y > canvas.height) {
-                particles.splice(index, 1);
-            }
+        cCtx.clearRect(0, 0, cCanvas.width, cCanvas.height);
+        confetti.forEach((c, idx) => {
+            c.update();
+            c.draw();
+            if (c.y > cCanvas.height) confetti.splice(idx, 1);
         });
-
         requestAnimationFrame(animateConfetti);
     }
-
     animateConfetti();
 });
