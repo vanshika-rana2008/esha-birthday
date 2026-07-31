@@ -3,193 +3,1017 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Esha ✨ | A Special Surprise</title>
-    <!-- Google Fonts for Luxury Typography -->
+    <title>Esha | The Royal Birthday Edition</title>
+    <!-- Modern Luxury Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           1. LUXURY DESIGN SYSTEM & RESETS
+           ========================================================================== */
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F3E5AB;
+            --champagne: #F7E7CE;
+            --rose-velvet: #1a050e;
+            --deep-plum: #0f0207;
+            --accent-pink: #e05286;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(212, 175, 55, 0.18);
+            --glass-glow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+            
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --font-script: 'Pinyon Script', cursive;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 15px; /* Refined base size for sleek proportions */
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--deep-plum);
+            color: #f5f5f5;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Ambient Glow & Floating Mesh Background */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            background: radial-gradient(circle at 20% 20%, #2b0817 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, #1c030d 0%, transparent 50%),
+                        linear-gradient(180deg, #0f0207 0%, #070104 100%);
+        }
+
+        #sparkles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Sleek Container Padding & Max Widths */
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: var(--glass-glow);
+            transition: border-color 0.4s ease, transform 0.4s ease;
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(212, 175, 55, 0.35);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--deep-plum);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 3px;
+        }
+
+        /* ==========================================================================
+           2. INTRO OVERLAY (LUXURY ENVELOPE / TAP TO OPEN)
+           ========================================================================== */
+        .intro-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(7, 1, 4, 0.96);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), visibility 1s;
+        }
+
+        .intro-overlay.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .intro-card {
+            text-align: center;
+            padding: 3rem 2.5rem;
+            max-width: 420px;
+            width: 90%;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            background: linear-gradient(145deg, rgba(30, 6, 18, 0.6), rgba(12, 2, 7, 0.8));
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.08);
+        }
+
+        .monogram {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            color: var(--gold);
+            letter-spacing: 4px;
+            margin-bottom: 1.2rem;
+            font-weight: 300;
+        }
+
+        .intro-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #fff;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .intro-subtitle {
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #997a15);
+            border: none;
+            padding: 0.85rem 2.2rem;
+            color: #000;
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+        }
+
+        /* ==========================================================================
+           3. NAVBAR & FLOATING CONTROLS
+           ========================================================================== */
+        .navbar {
+            padding: 1.8rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            letter-spacing: 3px;
+            color: var(--champagne);
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .music-widget {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            padding: 0.4rem 0.9rem;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .music-widget:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .music-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 12px;
+        }
+
+        .music-bar {
+            width: 2px;
+            height: 100%;
+            background: var(--gold);
+            animation: soundWave 1.2s infinite ease-in-out alternate;
+        }
+
+        .music-bar:nth-child(2) { animation-delay: 0.2s; }
+        .music-bar:nth-child(3) { animation-delay: 0.4s; }
+
+        .music-widget.paused .music-bar {
+            animation: none;
+            height: 3px;
+        }
+
+        @keyframes soundWave {
+            0% { height: 3px; }
+            100% { height: 12px; }
+        }
+
+        .music-text {
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+        }
+
+        /* ==========================================================================
+           4. HERO SECTION
+           ========================================================================== */
+        .hero {
+            padding: 4rem 0 3rem;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.35rem 1.2rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gold-light);
+            margin-bottom: 1.5rem;
+            background: rgba(212, 175, 55, 0.03);
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.4rem, 5vw, 4.2rem);
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .hero-title span {
+            font-style: italic;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff 20%, var(--gold-light) 70%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 0.92rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 500px;
+            margin: 0 auto 2.5rem;
+            font-weight: 300;
+            line-height: 1.7;
+            letter-spacing: 0.5px;
+        }
+
+        /* ==========================================================================
+           5. LETTER SECTION (ELEGANT UNFOLD)
+           ========================================================================== */
+        .letter-section {
+            padding: 3rem 0;
+        }
+
+        .letter-card {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 3rem 2.5rem;
+            position: relative;
+        }
+
+        .letter-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .wax-seal-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8a1236, #4a061c);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: var(--gold);
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--champagne);
+            letter-spacing: 1px;
+        }
+
+        .letter-body {
+            font-size: 0.95rem;
+            line-height: 1.95;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 300;
+        }
+
+        .letter-body p {
+            margin-bottom: 1.2rem;
+        }
+
+        .script-greeting {
+            font-family: var(--font-script);
+            font-size: 2.2rem;
+            color: var(--gold-light);
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+
+        .signature-block {
+            margin-top: 2rem;
+            text-align: right;
+        }
+
+        .script-signature {
+            font-family: var(--font-script);
+            font-size: 2.4rem;
+            color: var(--gold);
+        }
+
+        /* ==========================================================================
+           6. COMPACT LUXURY CAKE & INTERACTIVE CANDLES
+           ========================================================================== */
+        .cake-section {
+            padding: 3.5rem 0;
+        }
+
+        .cake-card {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+
+        .cake-stage {
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin: 2rem 0 1.5rem;
+            position: relative;
+        }
+
+        .compact-cake {
+            position: relative;
+            width: 160px;
+        }
+
+        .cake-tier {
+            background: linear-gradient(to right, #2a0818, #400f26, #2a0818);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 6px 6px 0 0;
+            margin: 0 auto;
+        }
+
+        .tier-bottom {
+            width: 160px;
+            height: 45px;
+        }
+
+        .tier-middle {
+            width: 130px;
+            height: 38px;
+            background: linear-gradient(to right, #380b20, #541735, #380b20);
+        }
+
+        .tier-top {
+            width: 100px;
+            height: 32px;
+            background: linear-gradient(to right, #4a102b, #6b2046, #4a102b);
+        }
+
+        .cake-plate {
+            width: 190px;
+            height: 6px;
+            background: linear-gradient(to right, #888, #fff, #888);
+            border-radius: 10px;
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+        }
+
+        .candle-set {
+            position: absolute;
+            top: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 14px;
+            z-index: 2;
+        }
+
+        .compact-candle {
+            width: 6px;
+            height: 22px;
+            background: linear-gradient(to bottom, var(--gold-light), var(--gold));
+            border-radius: 2px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .compact-flame {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 12px;
+            background: #ffaa00;
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 8px #ffaa00, 0 0 12px #ff2200;
+            animation: flameFlicker 0.8s infinite alternate;
+            transition: opacity 0.3s;
+        }
+
+        .compact-candle.extinguished .compact-flame {
+            opacity: 0;
+            animation: none;
+        }
+
+        @keyframes flameFlicker {
+            0% { transform: translateX(-50%) scale(1); }
+            100% { transform: translateX(-50%) scale(1.15) rotate(3deg); }
+        }
+
+        .cake-instruction {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ==========================================================================
+           7. PHOTO GALLERY (COMPACT NO-CROP GRID)
+           ========================================================================== */
+        .gallery-section {
+            padding: 4rem 0;
+        }
+
+        .gallery-title-wrapper {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .gallery-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.35 ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 240px; /* Controlled sleek height */
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* STRICT NO CROPPING */
+            border-radius: 8px;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-card:hover img {
+            transform: scale(1.03);
+        }
+
+        .card-hover-icon {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 2, 7, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 12px;
+        }
+
+        .gallery-card:hover .card-hover-icon {
+            opacity: 1;
+        }
+
+        .view-badge {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            border: 1px solid var(--gold);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            background: rgba(0,0,0,0.4);
+        }
+
+        /* ==========================================================================
+           8. LIGHTBOX MODAL (REFINED FULLSCREEN VIEW)
+           ========================================================================== */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(5, 1, 3, 0.96);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-img-wrapper {
+            max-width: 85vw;
+            max-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-img-wrapper img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain; /* ZERO CROPPING IN LIGHTBOX */
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.9);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .lightbox-btn {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--gold-light);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            color: #fff;
+        }
+
+        .lightbox-close { top: 2rem; right: 2rem; }
+        .lightbox-prev { left: 2rem; top: 50%; transform: translateY(-50%); }
+        .lightbox-next { right: 2rem; top: 50%; transform: translateY(-50%); }
+
+        /* ==========================================================================
+           9. FOOTER
+           ========================================================================== */
+        .footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            margin-top: 4rem;
+        }
+
+        .footer-text {
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Canvas Confetti Layer */
+        #confetti-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        /* Responsive Tweaks */
+        @media (max-width: 600px) {
+            html { font-size: 14px; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+            .gallery-card { height: 180px; }
+            .lightbox-prev { left: 0.8rem; }
+            .lightbox-next { right: 0.8rem; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Background Animated Gradient & Floating Elements Container -->
-    <div class="gradient-bg"></div>
-    <div id="particles-container"></div>
-    <div id="balloons-container"></div>
+    <!-- Ambient Sparkles Canvas & Background -->
+    <div class="ambient-bg"></div>
+    <canvas id="sparkles-canvas"></canvas>
+    <canvas id="confetti-canvas"></canvas>
 
-    <!-- Audio Element (Trims first 15s via JS) -->
+    <!-- Audio Element (Auto-trimmed to skip first 15 sec) -->
     <audio id="bg-music" loop preload="auto">
         <source src="music/song.mp3.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
     </audio>
 
-    <!-- Tap to Open Intro Screen -->
-    <div id="intro-screen" class="intro-screen">
-        <div class="intro-glass-card">
-            <div class="sparkle-icon">✨</div>
-            <h1 class="intro-title">An Exclusive Surprise Awaits</h1>
-            <p class="intro-subtitle">Created with love for Esha</p>
-            <button id="enter-btn" class="glow-button">
-                <span>Tap to Experience</span>
-                <div class="btn-shine"></div>
-            </button>
+    <!-- 1. INTRO OVERLAY (TAP TO EXPERIENCE) -->
+    <div id="intro-overlay" class="intro-overlay">
+        <div class="intro-card">
+            <div class="monogram">E</div>
+            <h1 class="intro-title">An Exclusive Invitation</h1>
+            <p class="intro-subtitle">Designed for Esha's Birthday</p>
+            <button id="enter-btn" class="btn-gold">Tap to Enter</button>
         </div>
     </div>
 
-    <!-- Main Content Container -->
-    <main id="main-content" class="main-content hidden">
+    <!-- MAIN WRAPPER -->
+    <div class="container">
 
-        <!-- Navigation Bar -->
+        <!-- 2. NAVBAR -->
         <nav class="navbar">
-            <div class="logo">Esha's Day ✨</div>
-            <div class="nav-controls">
-                <button id="music-toggle" class="icon-button" title="Toggle Music">
-                    <span id="music-icon">🎵</span>
-                </button>
+            <a href="#" class="brand-logo">Esha ✨</a>
+            <div id="music-widget" class="music-widget paused" title="Toggle Sound">
+                <div class="music-bars">
+                    <div class="music-bar"></div>
+                    <div class="music-bar"></div>
+                    <div class="music-bar"></div>
+                </div>
+                <span class="music-text" id="music-status">Sound Off</span>
             </div>
         </nav>
 
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <div class="hero-badge">Celebrating Royalty</div>
-            <h1 class="hero-title">Happy Birthday, <span class="highlight-name">Esha</span></h1>
-            <p class="hero-subtitle">May your day be filled with endless magic, elegance, and pure joy.</p>
-            <a href="#letter" class="scroll-indicator">
-                <span>Scroll Down</span>
-                <div class="arrow-down">↓</div>
-            </a>
+        <!-- 3. HERO SECTION -->
+        <section class="hero">
+            <span class="hero-badge">Royalty Edition</span>
+            <h1 class="hero-title">Happy Birthday, <br><span>Esha</span></h1>
+            <p class="hero-subtitle">Wishing you a year enveloped in timeless elegance, boundless joy, and extraordinary moments.</p>
         </section>
 
-        <!-- Birthday Letter Section -->
-        <section id="letter" class="letter-section">
-            <div class="glass-card letter-card">
-                <div class="card-header">
-                    <span class="wax-seal">📜</span>
+        <!-- 4. LETTER SECTION -->
+        <section class="letter-section">
+            <div class="glass-panel letter-card">
+                <div class="letter-header">
+                    <div class="wax-seal-icon">✦</div>
                     <h2 class="section-title">A Message For You</h2>
                 </div>
                 <div class="letter-body">
-                    <p class="script-text">Dearest Esha,</p>
-                    <p>On this extraordinarily special day, I wanted to take a moment to celebrate the incredible person you are. You bring so much warm light, effortless elegance, and pure happiness into the lives of everyone around you.</p>
-                    <p>Watching you grow, shine, and overcome every challenge with beauty and grace is an absolute gift. May this year bring you closer to all your dreams, wrapped in good health, infinite laughter, and breathtaking moments.</p>
-                    <p class="script-text signature">With all my love & warmest wishes,</p>
-                    <p class="signature-sub">Forever & Always</p>
+                    <span class="script-greeting">Dearest Esha,</span>
+                    <p>On this beautiful occasion, I wanted to create a quiet space to honor the wonderful person you are. Your poise, kindness, and genuine warmth brighten every room you enter.</p>
+                    <p>May this new chapter bring you closer to every dream you hold dear, wrapped in abundant peace, good health, and unforgettable achievements.</p>
+                    <div class="signature-block">
+                        <span class="script-signature">With love always,</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Interactive Birthday Cake Section -->
+        <!-- 5. COMPACT CAKE SECTION -->
         <section class="cake-section">
-            <div class="glass-card cake-card">
-                <h2 class="section-title">Make a Wish</h2>
-                <p class="section-desc">Tap the candles to blow them out!</p>
+            <div class="glass-panel cake-card">
+                <h2 class="section-title">Make A Wish</h2>
                 
-                <div class="cake-wrapper">
-                    <div class="cake">
-                        <div class="plate"></div>
-                        <div class="layer layer-bottom"></div>
-                        <div class="layer layer-middle"></div>
-                        <div class="layer layer-top"></div>
-                        <div class="icing"></div>
-                        <div class="drips">
-                            <div class="drip"></div>
-                            <div class="drip"></div>
-                            <div class="drip"></div>
-                            <div class="drip"></div>
-                            <div class="drip"></div>
+                <div class="cake-stage">
+                    <div class="compact-cake">
+                        <div class="candle-set">
+                            <div class="compact-candle"><div class="compact-flame"></div></div>
+                            <div class="compact-candle"><div class="compact-flame"></div></div>
+                            <div class="compact-candle"><div class="compact-flame"></div></div>
                         </div>
-                        <!-- Candles Container -->
-                        <div class="candles-container" id="candles">
-                            <div class="candle" data-lit="true">
-                                <div class="flame"></div>
-                            </div>
-                            <div class="candle" data-lit="true">
-                                <div class="flame"></div>
-                            </div>
-                            <div class="candle" data-lit="true">
-                                <div class="flame"></div>
-                            </div>
-                        </div>
+                        <div class="cake-tier tier-top"></div>
+                        <div class="cake-tier tier-middle"></div>
+                        <div class="cake-tier tier-bottom"></div>
+                        <div class="cake-plate"></div>
                     </div>
                 </div>
 
-                <button id="celebrate-btn" class="glow-button celebrate-btn hidden">
-                    <span>Blow Confetti 🎉</span>
-                </button>
+                <p class="cake-instruction" id="cake-status">Tap candles to blow them out</p>
             </div>
         </section>
 
-        <!-- Photo Gallery Section -->
+        <!-- 6. PHOTO GALLERY (10 Photos, Strict No-Cropping) -->
         <section class="gallery-section">
-            <div class="gallery-header">
-                <h2 class="section-title">Precious Moments</h2>
-                <p class="section-desc">A visual celebration of beautiful memories.</p>
+            <div class="gallery-title-wrapper">
+                <span class="hero-badge">Gallery</span>
+                <h2 class="section-title">Treasured Moments</h2>
             </div>
 
             <div class="gallery-grid">
-                <!-- 10 Images loaded exact file names -->
-                <div class="gallery-item" data-index="0">
-                    <img src="images/1.jpg.JPG" alt="Esha Memory 1" loading="lazy">
-                    <div class="gallery-overlay"><span>Enlarge</span></div>
+                <div class="gallery-card" data-index="0">
+                    <img src="images/1.jpg.JPG" alt="Esha 1" loading="lazy">
+                    <div class="card-hover-icon"><span class="view-badge">View</span></div>
                 </div>
-                <div class="gallery-item" data-index="1">
-                    <img src="images/2.jpg.jpeg" alt="Esha Memory 2" loading="lazy">
-                    <div class="gallery-overlay"><span>Enlarge</span></div>
+                <div class="gallery-card" data-index="1">
+                    <img src="images/2.jpg.jpeg" alt="Esha 2" loading="lazy">
+                    <div class="card-hover-icon"><span class="view-badge">View</span></div>
                 </div>
-                <div class="gallery-item" data-index="2">
-                    <img src="images/3.jpg.jpeg" alt="Esha Memory 3" loading="lazy">
-                    <div class="gallery-overlay"><span>Enlarge</span></div>
+                <div class="gallery-card" data-index="2">
+                    <img src="images/3.jpg.jpeg" alt="Esha 3" loading="lazy">
+                    <div class="card-hover-icon"><span class="view-badge">View</span></div>
                 </div>
-                <div class="gallery-item" data-index="3">
-                    <img src="images/4.jpg.jpg" alt="Esha Memory 4" loading="lazy">
-                    <div class="gallery-overlay"><span>Enlarge</span></div>
+                <div class="gallery-card" data-index="3">
+                    <img src="images/4.jpg.jpg" alt="Esha 4" loading="lazy">
+                    <div class="card-hover-icon"><span class="view-badge">View</span></div>
                 </div>
-                <div class="gallery-item" data-index="4">
-                    <img src="images/5.jpg.JPG" alt="Esha Memory 5" loading="lazy">
-                    <div class="gallery-overlay"><span>Enlarge</span></div>
+                <div class="gallery-card" data-index="4">
+                    <img src="images/5.jpg.JPG" alt="Esha 5" loading="lazy">
+                    <div class="card-hover-icon"><span class="view-badge">View</span></div>
                 </div>
-                <div class="gallery-item" data-index="5">
-                    <img src="images/6.jpg.jpeg" alt="Esha Memory 6" loading="lazy">
-                    <div class="gallery-overlay"><span>Enlarge</span></div>
+                <div class="gallery-card" data-index="5">
+                    <img src="images/6.jpg.jpeg" alt="Esha 6" loading="lazy">
+                    <div class="card-hover-icon"><span class="view-badge">View</span></div>
                 </div>
-                <div class="gallery-item" data-index="6">
-                    <img src="images/7.jpg.JPG" alt="Esha Memory 7" loading="lazy">
-                    <div class="gallery-overlay"><span>Enlarge</span></div>
+                <div class="gallery-card" data-index="6">
+                    <img src="images/7.jpg.JPG" alt="Esha 7" loading="lazy">
+                    <div class="card-hover-icon"><span class="view-badge">View</span></div>
                 </div>
-                <div class="gallery-item" data-index="7">
-                    <img src="images/8.jpg.jpg" alt="Esha Memory 8" loading="lazy">
-                    <div class="gallery-overlay"><span>Enlarge</span></div>
+                <div class="gallery-card" data-index="7">
+                    <img src="images/8.jpg.jpg" alt="Esha 8" loading="lazy">
+                    <div class="card-hover-icon"><span class="view-badge">View</span></div>
                 </div>
-                <div class="gallery-item" data-index="8">
-                    <img src="images/9.jpg.JPG" alt="Esha Memory 9" loading="lazy">
-                    <div class="gallery-overlay"><span>Enlarge</span></div>
+                <div class="gallery-card" data-index="8">
+                    <img src="images/9.jpg.JPG" alt="Esha 9" loading="lazy">
+                    <div class="card-hover-icon"><span class="view-badge">View</span></div>
                 </div>
-                <div class="gallery-item" data-index="9">
-                    <img src="images/10.jpg.JPG" alt="Esha Memory 10" loading="lazy">
-                    <div class="gallery-overlay"><span>Enlarge</span></div>
+                <div class="gallery-card" data-index="9">
+                    <img src="images/10.jpg.JPG" alt="Esha 10" loading="lazy">
+                    <div class="card-hover-icon"><span class="view-badge">View</span></div>
                 </div>
             </div>
         </section>
 
-        <!-- Footer -->
+        <!-- 7. FOOTER -->
         <footer class="footer">
-            <p>Crafted with elegance for Esha • Happy Birthday ✨</p>
+            <p class="footer-text">Created for Esha • Happy Birthday ✨</p>
         </footer>
 
-    </main>
-
-    <!-- Fullscreen Lightbox Modal -->
-    <div id="lightbox" class="lightbox">
-        <span class="lightbox-close">&times;</span>
-        <button class="lightbox-nav prev" id="lightbox-prev">&#10094;</button>
-        <div class="lightbox-content">
-            <img id="lightbox-img" src="" alt="Enlarged view">
-        </div>
-        <button class="lightbox-nav next" id="lightbox-next">&#10095;</button>
     </div>
 
-    <!-- Canvas for Dynamic Confetti -->
-    <canvas id="confetti-canvas"></canvas>
+    <!-- 8. LIGHTBOX MODAL -->
+    <div id="lightbox" class="lightbox">
+        <button class="lightbox-btn lightbox-close" id="lb-close">&times;</button>
+        <button class="lightbox-btn lightbox-prev" id="lb-prev">&#10094;</button>
+        <div class="lightbox-img-wrapper">
+            <img id="lb-img" src="" alt="Enlarged Memory">
+        </div>
+        <button class="lightbox-btn lightbox-next" id="lb-next">&#10095;</button>
+    </div>
 
-    <script src="script.js"></script>
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Audio & Enter Logic
+            const bgMusic = document.getElementById('bg-music');
+            const enterBtn = document.getElementById('enter-btn');
+            const introOverlay = document.getElementById('intro-overlay');
+            const musicWidget = document.getElementById('music-widget');
+            const musicStatus = document.getElementById('music-status');
+            let isPlaying = false;
+
+            enterBtn.addEventListener('click', () => {
+                // CUT SONG STARTING 15 SECONDS
+                bgMusic.currentTime = 15;
+                
+                bgMusic.play().then(() => {
+                    isPlaying = true;
+                    musicWidget.classList.remove('paused');
+                    musicStatus.textContent = "Sound On";
+                }).catch(() => {
+                    isPlaying = false;
+                    musicWidget.classList.add('paused');
+                    musicStatus.textContent = "Sound Off";
+                });
+
+                introOverlay.classList.add('fade-out');
+            });
+
+            musicWidget.addEventListener('click', () => {
+                if (isPlaying) {
+                    bgMusic.pause();
+                    musicWidget.classList.add('paused');
+                    musicStatus.textContent = "Sound Off";
+                    isPlaying = false;
+                } else {
+                    bgMusic.play();
+                    musicWidget.classList.remove('paused');
+                    musicStatus.textContent = "Sound On";
+                    isPlaying = true;
+                }
+            });
+
+            // Candles Interactive Logic
+            const candles = document.querySelectorAll('.compact-candle');
+            const cakeStatus = document.getElementById('cake-status');
+            let extinguishedCount = 0;
+
+            candles.forEach(candle => {
+                candle.addEventListener('click', () => {
+                    if (!candle.classList.contains('extinguished')) {
+                        candle.classList.add('extinguished');
+                        extinguishedCount++;
+
+                        if (extinguishedCount === candles.length) {
+                            cakeStatus.textContent = "✨ Wishes Sent! Happy Birthday Esha! ✨";
+                            cakeStatus.style.color = "var(--gold-light)";
+                            triggerGoldConfetti();
+                        }
+                    }
+                });
+            });
+
+            // Lightbox Modal Logic
+            const galleryCards = document.querySelectorAll('.gallery-card');
+            const lightbox = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lb-img');
+            const lbClose = document.getElementById('lb-close');
+            const lbPrev = document.getElementById('lb-prev');
+            const lbNext = document.getElementById('lb-next');
+
+            const sources = Array.from(galleryCards).map(card => card.querySelector('img').src);
+            let currentIndex = 0;
+
+            galleryCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    currentIndex = parseInt(card.dataset.index);
+                    lbImg.src = sources[currentIndex];
+                    lightbox.classList.add('active');
+                });
+            });
+
+            const closeLB = () => lightbox.classList.remove('active');
+            lbClose.addEventListener('click', closeLB);
+            lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLB(); });
+
+            lbPrev.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentIndex = (currentIndex - 1 + sources.length) % sources.length;
+                lbImg.src = sources[currentIndex];
+            });
+
+            lbNext.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentIndex = (currentIndex + 1) % sources.length;
+                lbImg.src = sources[currentIndex];
+            });
+
+            // Ambient Sparkles Background
+            const sCanvas = document.getElementById('sparkles-canvas');
+            const sCtx = sCanvas.getContext('2d');
+            let sparkles = [];
+
+            function resizeSparkles() {
+                sCanvas.width = window.innerWidth;
+                sCanvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeSparkles);
+            resizeSparkles();
+
+            class Sparkle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * sCanvas.width;
+                    this.y = Math.random() * sCanvas.height;
+                    this.size = Math.random() * 1.5 + 0.5;
+                    this.alpha = Math.random();
+                    this.speed = Math.random() * 0.01 + 0.005;
+                }
+                update() {
+                    this.alpha += this.speed;
+                    if (this.alpha > 1 || this.alpha < 0) this.speed = -this.speed;
+                }
+                draw() {
+                    sCtx.fillStyle = `rgba(212, 175, 55, ${Math.abs(this.alpha) * 0.6})`;
+                    sCtx.beginPath();
+                    sCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    sCtx.fill();
+                }
+            }
+
+            for (let i = 0; i < 60; i++) sparkles.push(new Sparkle());
+
+            function animateSparkles() {
+                sCtx.clearRect(0, 0, sCanvas.width, sCanvas.height);
+                sparkles.forEach(s => { s.update(); s.draw(); });
+                requestAnimationFrame(animateSparkles);
+            }
+            animateSparkles();
+
+            // Luxury Champagne Confetti
+            const cCanvas = document.getElementById('confetti-canvas');
+            const cCtx = cCanvas.getContext('2d');
+            let confetti = [];
+
+            function resizeConfetti() {
+                cCanvas.width = window.innerWidth;
+                cCanvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeConfetti);
+            resizeConfetti();
+
+            class Confetti {
+                constructor() {
+                    this.x = Math.random() * cCanvas.width;
+                    this.y = -10;
+                    this.size = Math.random() * 6 + 4;
+                    this.color = ['#D4AF37', '#F3E5AB', '#ffffff', '#e05286'][Math.floor(Math.random() * 4)];
+                    this.speedY = Math.random() * 2.5 + 1.5;
+                    this.speedX = Math.random() * 1.5 - 0.75;
+                    this.rotation = Math.random() * 360;
+                }
+                update() {
+                    this.y += this.speedY;
+                    this.x += this.speedX;
+                    this.rotation += 2;
+                }
+                draw() {
+                    cCtx.save();
+                    cCtx.translate(this.x, this.y);
+                    cCtx.rotate((this.rotation * Math.PI) / 180);
+                    cCtx.fillStyle = this.color;
+                    cCtx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+                    cCtx.restore();
+                }
+            }
+
+            function triggerGoldConfetti() {
+                for (let i = 0; i < 90; i++) confetti.push(new Confetti());
+            }
+
+            function animateConfetti() {
+                cCtx.clearRect(0, 0, cCanvas.width, cCanvas.height);
+                confetti.forEach((c, idx) => {
+                    c.update();
+                    c.draw();
+                    if (c.y > cCanvas.height) confetti.splice(idx, 1);
+                });
+                requestAnimationFrame(animateConfetti);
+            }
+            animateConfetti();
+        });
+    </script>
 </body>
 </html>
