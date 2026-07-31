@@ -1,111 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday Esha ❤️</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #fce4ec;
-      color: #880e4f;
-      text-align: center;
-      margin: 0;
-      padding: 20px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Esha ❤️</title>
 
-    h1 {
-      color: #e91e63;
-      margin-top: 30px;
-    }
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    h2 {
-      color: #c2185b;
-    }
-
-    p {
-      font-size: 1.1em;
-      line-height: 1.6;
-      max-width: 600px;
-      margin: 15px auto;
-    }
-
-    section {
-      background-color: #ffffff;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      margin: 20px auto;
-      max-width: 800px;
-    }
-
-    /* Memories Gallery Grid */
-    .memories-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 15px;
-      padding: 15px 0;
-    }
-
-    /* Photo Size & Fit Fix */
-    .memories-grid img {
-      width: 100% !important;
-      height: 250px !important;
-      object-fit: cover !important; /* Image crop ho kar fit hogi, stretch nahi hogi */
-      border-radius: 12px;
-      border: 4px solid #fff;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-      transition: transform 0.3s ease;
-    }
-
-    .memories-grid img:hover {
-      transform: scale(1.03);
-    }
-
-    audio {
-      margin-top: 25px;
-      width: 90%;
-      max-width: 400px;
-    }
-  </style>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <div>
-    <h1>Happy Birthday Esha ❤️</h1>
-    <p>A beautiful surprise is waiting for you...</p>
+<div id="hearts"></div>
 
-    <section>
-      <h2>Dear Esha,</h2>
-      <p>Happy Birthday! 🎂❤️</p>
-      <p>I hope this birthday brings you endless happiness, lots of laughter, and beautiful memories that stay with you forever.</p>
-      <p>Thank you for being the sweetest sister. I'm really lucky to have you. No matter how much we fight, you'll always be one of the most special people in my life.</p>
-      <p>Keep smiling, keep shining, and always stay the amazing person you are.</p>
-      <p>Happy Birthday once again! I love you so much. ❤️</p>
-    </section>
+<!-- INTRO SCREEN -->
+<div id="intro" class="intro-screen">
 
-    <section>
-      <h2>Memories</h2>
-      <div class="memories-grid">
-        <!-- Exact Filenames matching your GitHub images -->
-        <img alt="Memory 1" src="images/1.jpg.JPG">
-        <img alt="Memory 2" src="images/2.jpg.jpeg">
-        <img alt="Memory 3" src="images/3.jpg.jpeg">
-        <img alt="Memory 4" src="images/4.jpg.jpg">
-        <img alt="Memory 5" src="images/5.jpg.JPG">
-        <img alt="Memory 6" src="images/6.jpg.jpeg">
-        <img alt="Memory 7" src="images/7.jpg.JPG">
-        <img alt="Memory 8" src="images/8.jpg.jpg">
-        <img alt="Memory 9" src="images/9.jpg.JPG">
-        <img alt="Memory 10" src="images/10.jpg.JPG">
-      </div>
-    </section>
+    <div class="intro-card">
 
-    <!-- Music Player -->
-    <audio controls loop src="music/song.mp3.mp3"></audio>
-  </div>
+        <h1>🎁</h1>
+
+        <h2>Happy Birthday Esha ❤️</h2>
+
+        <p>
+            Someone made something special just for you...
+        </p>
+
+        <button id="openBtn">
+            💖 Tap To Open Your Surprise
+        </button>
+
+    </div>
+
+</div>
+
+<!-- MAIN WEBSITE -->
+<div id="mainContent" class="hidden">
+
+<header class="hero">
+
+<h1>
+Happy Birthday Esha ❤️
+</h1>
+
+<p>
+Every moment with you is a beautiful memory...
+</p>
+
+</header>
+
+<section class="glass">
+
+<h2>
+💌 A Letter For You
+</h2>
+
+<div id="typingText">
+
+<p>
+Happy Birthday! 🎂❤️
+</p>
+
+<p>
+I hope this birthday brings you endless happiness,
+lots of laughter,
+and beautiful memories that stay with you forever.
+</p>
+
+<p>
+Thank you for being the sweetest sister.
+I'm really lucky to have you.
+No matter how much we fight,
+you'll always be one of the most special people in my life.
+</p>
+
+<p>
+Keep smiling,
+keep shining,
+and always stay the amazing person you are.
+</p>
+
+<p>
+Happy Birthday once again!
+I love you so much. ❤️
+</p>
+
+</div>
+
+</section>
+
+<section class="glass">
+
+<h2>
+📸 Our Beautiful Memories
+</h2>
+
+<div class="gallery">
+
+<div class="photo">
+<img src="images/1.jpg.JPG" alt="">
+</div>
+
+<div class="photo">
+<img src="images/2.jpg.jpeg" alt="">
+</div>
+
+<div class="photo">
+<img src="images/3.jpg.jpeg" alt="">
+</div>
+
+<div class="photo">
+<img src="images/4.jpg.jpg" alt="">
+</div>
+
+<div class="photo">
+<img src="images/5.jpg.JPG" alt="">
+</div>
+
+<div class="photo">
+<img src="images/6.jpg.jpeg" alt="">
+</div>
+
+<div class="photo">
+<img src="images/7.jpg.JPG" alt="">
+</div>
+
+<div class="photo">
+<img src="images/8.jpg.jpg" alt="">
+</div>
+
+<div class="photo">
+<img src="images/9.jpg.JPG" alt="">
+</div>
+
+<div class="photo">
+<img src="images/10.jpg.JPG" alt="">
+</div>
+
+</div>
+
+</section>
+<!-- Birthday Cake -->
+
+<section class="glass cake-section">
+
+    <h2>🎂 Make A Birthday Wish</h2>
+
+    <div class="cake">
+        🎂
+    </div>
+
+    <p class="wish">
+        May every dream of yours come true and your smile
+        always shine brighter than the stars. ✨
+    </p>
+
+</section>
+
+
+<!-- Final Message -->
+
+<section class="glass ending">
+
+    <h2>❤️ Always Remember ❤️</h2>
+
+    <p>
+
+        No matter where life takes us,
+
+        you'll always be my favourite sister,
+
+        my best friend,
+
+        and one of the most precious people in my life.
+
+    </p>
+
+    <h3>
+
+        Happy Birthday Esha ❤️
+
+    </h3>
+
+</section>
+
+
+<footer>
+
+Made with ❤️ by Vanshika
+
+</footer>
+
+
+
+<!-- Lightbox -->
+
+<div id="lightbox">
+
+<span id="closeLightbox">
+
+✖
+
+</span>
+
+<img id="lightboxImg">
+
+</div>
+
+
+
+<!-- Confetti -->
+
+<div id="confetti-container"></div>
+
+
+
+<!-- Background Music -->
+
+<audio
+id="birthdaySong"
+loop>
+
+<source
+src="music/song.mp3.mp3"
+type="audio/mpeg">
+
+</audio>
+
+
+
+<!-- JS -->
+
+<script src="script.js"></script>
+
+</div>
 
 </body>
+
 </html>
+      
+
 
 
