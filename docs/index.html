@@ -7,7 +7,7 @@
   
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
-  <link rel="stylesheet" href="style.css"> <!-- Aapki CSS file ka link -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -116,15 +116,14 @@
     <img alt="Enlarged View" src="">
   </div>
 
-  <!-- Audio start-time update script -->
+  <!-- Audio start-time update script (Skipping first 15 seconds) -->
   <script>
     const bgMusic = document.getElementById('birthdaySong');
 
     document.addEventListener('click', () => {
       if (bgMusic && bgMusic.paused) {
-        // 7 seconds se song start hoga
-        bgMusic.currentTime = 7; 
-        bgMusic.play().catch(err => console.log("Audio autoplay prevented:", err));
+        bgMusic.currentTime = 15; 
+        bgMusic.play().catch(err => console.log("Audio play error:", err));
       }
     }, { once: true });
   </script>
