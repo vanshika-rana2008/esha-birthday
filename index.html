@@ -1,247 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Esha ❤️</title>
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Esha ✨</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div id="hearts"></div>
+  <!-- Audio Element -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="music/song.mp3.mp3" type="audio/mpeg">
+  </audio>
 
-<!-- INTRO SCREEN -->
-<div id="intro" class="intro-screen">
+  <!-- Background Animated Layer -->
+  <div class="gradient-bg"></div>
+  <div id="particles-container"></div>
 
-    <div class="intro-card">
+  <!-- Music Control Button -->
+  <button id="music-toggle" class="glass-btn music-btn hidden" aria-label="Toggle Music">
+    <span class="music-icon">🎵</span>
+  </button>
 
-        <h1>🎁</h1>
-
-        <h2>Happy Birthday Esha ❤️</h2>
-
-        <p>
-            Someone made something special just for you...
-        </p>
-
-        <button id="openBtn">
-            💖 Tap To Open Your Surprise
-        </button>
-
+  <!-- Intro Screen Overlay -->
+  <section id="intro-screen" class="intro-screen">
+    <div class="glass-card intro-card">
+      <div class="sparkle-ring"></div>
+      <h2 class="sub-title">A Special Surprise For</h2>
+      <h1 class="glow-text">Esha</h1>
+      <p class="tap-instruction">Tap anywhere to unlock the magic ✨</p>
+      <button class="glass-button pulse-btn">Open Celebration</button>
     </div>
-
-</div>
-
-<!-- MAIN WEBSITE -->
-<div id="mainContent" class="hidden">
-
-<header class="hero">
-
-<h1>
-Happy Birthday Esha ❤️
-</h1>
-
-<p>
-Every moment with you is a beautiful memory...
-</p>
-
-</header>
-
-<section class="glass">
-
-<h2>
-💌 A Letter For You
-</h2>
-
-<div id="typingText">
-
-<p>
-Happy Birthday! 🎂❤️
-</p>
-
-<p>
-I hope this birthday brings you endless happiness,
-lots of laughter,
-and beautiful memories that stay with you forever.
-</p>
-
-<p>
-Thank you for being the sweetest sister.
-I'm really lucky to have you.
-No matter how much we fight,
-you'll always be one of the most special people in my life.
-</p>
-
-<p>
-Keep smiling,
-keep shining,
-and always stay the amazing person you are.
-</p>
-
-<p>
-Happy Birthday once again!
-I love you so much. ❤️
-</p>
-
-</div>
-
-</section>
-
-<section class="glass">
-
-<h2>
-📸 Our Beautiful Memories
-</h2>
-
-<div class="gallery">
-
-<div class="photo">
-<img src="images/1.jpg.JPG" alt="">
-</div>
-
-<div class="photo">
-<img src="images/2.jpg.jpeg" alt="">
-</div>
-
-<div class="photo">
-<img src="images/3.jpg.jpeg" alt="">
-</div>
-
-<div class="photo">
-<img src="images/4.jpg.jpg" alt="">
-</div>
-
-<div class="photo">
-<img src="images/5.jpg.JPG" alt="">
-</div>
-
-<div class="photo">
-<img src="images/6.jpg.jpeg" alt="">
-</div>
-
-<div class="photo">
-<img src="images/7.jpg.JPG" alt="">
-</div>
-
-<div class="photo">
-<img src="images/8.jpg.jpg" alt="">
-</div>
-
-<div class="photo">
-<img src="images/9.jpg.JPG" alt="">
-</div>
-
-<div class="photo">
-<img src="images/10.jpg.JPG" alt="">
-</div>
-
-</div>
-
-</section>
-<!-- Birthday Cake -->
-
-<section class="glass cake-section">
-
-    <h2>🎂 Make A Birthday Wish</h2>
-
-    <div class="cake">
-        🎂
-    </div>
-
-    <p class="wish">
-        May every dream of yours come true and your smile
-        always shine brighter than the stars. ✨
-    </p>
-
-</section>
-
-
-<!-- Final Message -->
-
-<section class="glass ending">
-
-    <h2>❤️ Always Remember ❤️</h2>
-
-    <p>
-
-        No matter where life takes us,
-
-        you'll always be my favourite sister,
-
-        my best friend,
-
-        and one of the most precious people in my life.
-
-    </p>
-
-    <h3>
-
-        Happy Birthday Esha ❤️
-
-    </h3>
-
-</section>
-
-
-<footer>
-
-Made with ❤️ by Vanshika
-
-</footer>
-
-
-
-<!-- Lightbox -->
-
-<div id="lightbox">
-
-<span id="closeLightbox">
-
-✖
-
-</span>
-
-<img id="lightboxImg">
-
-</div>
-
-
-
-<!-- Confetti -->
-
-<div id="confetti-container"></div>
-
-
-
-<!-- Background Music -->
-
-<audio
-id="birthdaySong"
-loop>
-
-<source
-src="music/song.mp3.mp3"
-type="audio/mpeg">
-
-</audio>
-
-
-
-<!-- JS -->
-
-<script src="script.js"></script>
-
-</div>
-
-</body>
-
-</html>
+  </section>
+
+  <!-- Main Website Content -->
+  <main id="main-content" class="main-content hidden">
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="glass-card hero-card">
+        <span class="badge">Celebration Day</span>
+        <h1 class="hero-title">Happy Birthday, <span class="highlight-name">Esha</span> 🎉</h1>
+        <p class="hero-subtitle">Wishing you a day filled with elegance, warmth, joy, and endless love.</p>
+        <div class="scroll-indicator">
+          <span>Scroll down to explore</span>
+          <div class="chevron"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Animated Birthday Letter Section -->
+    <section class="letter-section">
+      <div class="glass-card letter-card">
+        <div class="wax-seal">👑</div>
+        <h2 class="section-title script-font">Dearest Esha,</h2>
+        <div class="letter-body">
+          <p>Today is all about celebrating you—your radiant smile, your kind heart, and the beauty you bring into the world every single day.</p>
+          <p>May your year ahead be filled with unforgettable adventures, brilliant successes, and quiet moments of complete happiness. Never stop shining bright!</p>
+        </div>
+        <div class="letter-footer script-font">
+          With endless love & warmth 💕
+        </div>
+      </div>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section class="gallery-section">
+      <h2 class="section-heading">Cherished Moments</h2>
+      <p class="section-subheading">Tap any photo to view in full screen</p>
       
+      <div class="gallery-grid">
+        <div class="gallery-item glass-card"><img src="images/1.jpg.JPG" alt="Esha Memory 1" loading="lazy"></div>
+        <div class="gallery-item glass-card"><img src="images/2.jpg.jpeg" alt="Esha Memory 2" loading="lazy"></div>
+        <div class="gallery-item glass-card"><img src="images/3.jpg.jpeg" alt="Esha Memory 3" loading="lazy"></div>
+        <div class="gallery-item glass-card"><img src="images/4.jpg.jpg" alt="Esha Memory 4" loading="lazy"></div>
+        <div class="gallery-item glass-card"><img src="images/5.jpg.JPG" alt="Esha Memory 5" loading="lazy"></div>
+        <div class="gallery-item glass-card"><img src="images/6.jpg.jpeg" alt="Esha Memory 6" loading="lazy"></div>
+        <div class="gallery-item glass-card"><img src="images/7.jpg.JPG" alt="Esha Memory 7" loading="lazy"></div>
+        <div class="gallery-item glass-card"><img src="images/8.jpg.jpg" alt="Esha Memory 8" loading="lazy"></div>
+        <div class="gallery-item glass-card"><img src="images/9.jpg.JPG" alt="Esha Memory 9" loading="lazy"></div>
+        <div class="gallery-item glass-card"><img src="images/10.jpg.JPG" alt="Esha Memory 10" loading="lazy"></div>
+      </div>
+    </section>
 
+    <!-- Interactive Birthday Cake Section -->
+    <section class="cake-section">
+      <div class="glass-card cake-card">
+        <h2 class="section-title">Make a Wish</h2>
+        <p class="cake-instruction">Tap the candle flame to blow it out!</p>
+        
+        <div class="cake-wrapper">
+          <div class="cake">
+            <div class="candle">
+              <div class="flame" id="flame"></div>
+            </div>
+            <div class="top-layer"></div>
+            <div class="middle-layer"></div>
+            <div class="bottom-layer"></div>
+          </div>
+        </div>
 
+        <button id="confetti-btn" class="glass-button gold-btn">Trigger Confetti 🎊</button>
+      </div>
+    </section>
 
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Crafted with love for <strong>Esha</strong> ✨</p>
+    </footer>
+
+  </main>
+
+  <!-- Fullscreen Lightbox Modal -->
+  <div id="lightbox" class="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="Enlarged View">
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
