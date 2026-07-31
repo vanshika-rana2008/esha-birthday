@@ -1,49 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Esha ❤️</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Esha ❤️</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fce4ec;
+      color: #880e4f;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #e91e63;
+      margin-top: 30px;
+    }
+
+    h2 {
+      color: #c2185b;
+    }
+
+    p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 15px auto;
+    }
+
+    section {
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin: 20px auto;
+      max-width: 800px;
+    }
+
+    /* Memories Gallery Grid */
+    .memories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      padding: 15px 0;
+    }
+
+    /* Photo Size & Fit Fix */
+    .memories-grid img {
+      width: 100% !important;
+      height: 250px !important;
+      object-fit: cover !important; /* Image crop ho kar fit hogi, stretch nahi hogi */
+      border-radius: 12px;
+      border: 4px solid #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+    }
+
+    .memories-grid img:hover {
+      transform: scale(1.03);
+    }
+
+    audio {
+      margin-top: 25px;
+      width: 90%;
+      max-width: 400px;
+    }
+  </style>
 </head>
 <body>
-<div class="hero">
-  <h1>Happy Birthday Esha ❤️</h1>
-  <p>A beautiful surprise is waiting for you...</p>
-  <button id="startBtn">Open Your Surprise 🎁</button>
 
-  <section id="letter">
-    <h2>Dear Esha,</h2>
-    <p>Happy Birthday! 🎂❤️</p>
-    <p>I hope this birthday brings you endless happiness, lots of laughter, and beautiful memories that stay with you forever.</p>
-    <p>Thank you for being the sweetest sister. I'm really lucky to have you. No matter how much we fight, you'll always be one of the most special people in my life.</p>
-    <p>Keep smiling, keep shining, and always stay the amazing person you are.</p>
-    <p>Happy Birthday once again! I love you so much. ❤️</p>
-  </section>
+  <div>
+    <h1>Happy Birthday Esha ❤️</h1>
+    <p>A beautiful surprise is waiting for you...</p>
 
-  <section id="gallery">
-    <h2>Memories</h2>
-    <div class="grid">
-      <!-- 1 se 10 exact order mein -->
-      <img src="images/1.jpg.JPG" alt="Memory 1">
-      <img src="images/2.jpg.JPG" alt="Memory 2">
-      <img src="images/3.jpg.jpg" alt="Memory 3">
-      <img src="images/4.jpg.jpg" alt="Memory 4">
-      <img src="images/5.jpg.JPG" alt="Memory 5">
-      <img src="images/6.jpg.jpeg" alt="Memory 6">
-      <img src="images/7.jpg.JPG" alt="Memory 7">
-      <img src="images/8.jpg.jpg" alt="Memory 8">
-      <img src="images/9.jpg.JPG" alt="Memory 9">
-      <img src="images/10.jpg.JPG" alt="Memory 10">
-    </div>
-  </section>
+    <section>
+      <h2>Dear Esha,</h2>
+      <p>Happy Birthday! 🎂❤️</p>
+      <p>I hope this birthday brings you endless happiness, lots of laughter, and beautiful memories that stay with you forever.</p>
+      <p>Thank you for being the sweetest sister. I'm really lucky to have you. No matter how much we fight, you'll always be one of the most special people in my life.</p>
+      <p>Keep smiling, keep shining, and always stay the amazing person you are.</p>
+      <p>Happy Birthday once again! I love you so much. ❤️</p>
+    </section>
 
-  <audio id="bgm" controls src="music/malang-sajna.mp3"></audio>
-</div>
+    <section>
+      <h2>Memories</h2>
+      <div class="memories-grid">
+        <!-- Exact Filenames matching your GitHub images -->
+        <img alt="Memory 1" src="images/1.jpg.JPG">
+        <img alt="Memory 2" src="images/2.jpg.jpeg">
+        <img alt="Memory 3" src="images/3.jpg.jpeg">
+        <img alt="Memory 4" src="images/4.jpg.jpg">
+        <img alt="Memory 5" src="images/5.jpg.JPG">
+        <img alt="Memory 6" src="images/6.jpg.jpeg">
+        <img alt="Memory 7" src="images/7.jpg.JPG">
+        <img alt="Memory 8" src="images/8.jpg.jpg">
+        <img alt="Memory 9" src="images/9.jpg.JPG">
+        <img alt="Memory 10" src="images/10.jpg.JPG">
+      </div>
+    </section>
 
-<script src="script.js"></script>
+    <!-- Music Player -->
+    <audio controls loop src="music/song.mp3"></audio>
+  </div>
+
 </body>
 </html>
-
 
 
