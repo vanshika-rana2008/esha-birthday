@@ -1,197 +1,480 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday Esha! ✨💖</title>
-  
-  <!-- Font Awesome & Google Fonts -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap" rel="stylesheet">
-  
-  <!-- Canvas Confetti Library -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Esha! 💖</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sacramento&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- External Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FFF8F6',
+                        rosepink: '#FFB7B2',
+                        pastelpeach: '#FFDAC1',
+                        softpurple: '#E2F0CB',
+                        dustyrose: '#E8A598',
+                        warmpink: '#FF85A1'
+                    },
+                    fontFamily: {
+                        serifHand: ['Sacramento', 'cursive'],
+                        titleHand: ['Dancing Script', 'cursive'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 50%, #fff3e0 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.85);
+            box-shadow: 0 10px 30px rgba(220, 150, 170, 0.15);
+        }
+
+        /* Cute Float Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Polaroid Hover Effect */
+        .polaroid {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+        .polaroid:hover {
+            transform: translateY(-8px) rotate(0deg) scale(1.03) !important;
+            box-shadow: 0 15px 30px rgba(255, 133, 161, 0.25);
+        }
+
+        /* Candle Flame Animation */
+        @keyframes flicker {
+            0%, 100% { transform: scale(1) rotate(-1deg); opacity: 0.9; }
+            20% { transform: scale(1.1) rotate(2deg); opacity: 1; }
+            40% { transform: scale(0.95) rotate(-2deg); opacity: 0.8; }
+            60% { transform: scale(1.05) rotate(1deg); opacity: 1; }
+            80% { transform: scale(0.9) rotate(0deg); opacity: 0.85; }
+        }
+        .flame {
+            animation: flicker 0.8s infinite alternate;
+            transform-origin: center bottom;
+        }
+
+        /* Sparkles background */
+        .sparkle-bg {
+            background-image: radial-gradient(#ff85a1 1px, transparent 1px), radial-gradient(#ffb7b2 1px, #fce4ec 1px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            opacity: 0.3;
+        }
+    </style>
 </head>
-<body>
+<body class="relative text-gray-800 select-none">
 
-  <!-- Floating Sparkles & Hearts Canvas -->
-  <canvas id="fx-canvas"></canvas>
+    <!-- Background Sparkles -->
+    <div class="fixed inset-0 sparkle-bg pointer-events-none z-0"></div>
 
-  <!-- Background Music Element -->
-  <audio id="bg-music" loop preload="auto">
-    <source src="music/song.mp3.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+    <!-- Background Floating Particles -->
+    <div id="particles-container" class="fixed inset-0 pointer-events-none z-0"></div>
 
-  <!-- Floating Audio Controls Toggle -->
-  <div class="music-control" id="music-toggle" title="Toggle Music">
-    <i class="fas fa-music"></i>
-  </div>
+    <!-- Audio Element -->
+    <audio id="bg-music" preload="auto" loop>
+        <source src="music/song.mp3.mp3" type="audio/mpeg">
+        <source src="music/song.mp3" type="audio/mpeg">
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
 
-  <!-- INTRO OVERLAY (TAP TO OPEN) -->
-  <div id="intro-overlay">
-    <div class="gift-box-wrapper">
-      <i class="fas fa-gift"></i>
+    <!-- Music Control Button (Top Right) -->
+    <div id="music-control" class="fixed top-5 right-5 z-50 hidden">
+        <button onclick="toggleMusic()" class="bg-white/90 backdrop-blur-md p-3 rounded-full shadow-lg border border-pink-200 text-pink-500 hover:bg-pink-50 transition-all flex items-center gap-2 px-4 cursor-pointer">
+            <i id="music-icon" class="fas fa-disc fa-spin text-lg"></i>
+            <span id="music-text" class="text-xs font-semibold tracking-wide">Playing</span>
+        </button>
     </div>
-    <h1 class="intro-title">A Special Gift for Esha</h1>
-    <p style="margin-bottom: 2rem; opacity: 0.9;">Tap anywhere to unlock the magic</p>
-    <button class="tap-btn">Open Celebration ✨</button>
-  </div>
 
-  <!-- MAIN CONTENT CONTAINER -->
-  <div class="container">
-    
-    <!-- HERO SECTION -->
-    <header class="hero">
-      <div class="balloons-container" id="balloons"></div>
-      <h1 class="reveal">Happy Birthday Esha! 💕</h1>
-      <p class="reveal">Wishing you a day as extraordinary & beautiful as you are</p>
-    </header>
+    <!-- STEP 1: INITIAL SURPRISE SCREEN -->
+    <div id="step-surprise" class="fixed inset-0 z-40 flex flex-col items-center justify-center p-4 transition-opacity duration-700">
+        <div class="text-center max-w-md mx-auto">
+            <div class="inline-block px-4 py-1.5 bg-pink-100 text-pink-600 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 animate-pulse">
+                ✨ Something Special For You ✨
+            </div>
+            <h1 class="font-titleHand text-5xl md:text-6xl text-pink-600 mb-6 leading-tight">
+                Hey Esha! ❤️
+            </h1>
+            <p class="text-gray-600 text-sm md:text-base mb-8">
+                A little surprise crafted with lots of love just for you on your special day!
+            </p>
 
-    <!-- ANIMATED LETTER SECTION -->
-    <section class="reveal">
-      <h2 class="section-title">A Message For You</h2>
-      <div class="envelope-wrapper glass-card">
-        <div class="letter-content">
-          <p class="letter-greeting">Dear Esha ❤️</p>
-          <p class="letter-highlight">Happy Birthday! 🎂💖</p>
-          <p>I hope you have the happiest birthday ever and that this year brings you lots of happiness, success, good health, and beautiful memories.</p>
-          <p>Thank you for always being there for me. We’ve shared so many laughs, memories, and even silly fights. I’m really lucky to have you in my life.</p>
-          <p>I hope all your dreams come true and you keep smiling every single day. You truly deserve all the love and happiness in the world.</p>
-          <p>I love you more than I say, and I’m always grateful to have a sister like you.</p>
-          <p class="letter-highlight">Happy Birthday once again! ❤️🎉</p>
-          <div class="letter-signoff">
-            <p>With lots of love,</p>
-            <p class="signature">Your sister, Vanshika ❤️</p>
-          </div>
+            <!-- Gift Box Button -->
+            <button id="surprise-btn" onclick="openSurprise()" class="group relative inline-flex items-center justify-center p-0.5 mb-2 overflow-hidden text-sm font-medium rounded-3xl bg-gradient-to-br from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500 text-white shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer">
+                <span class="relative px-8 py-4 transition-all ease-in duration-75 bg-white rounded-3xl group-hover:bg-opacity-0 text-pink-600 group-hover:text-white font-semibold text-lg flex items-center gap-3">
+                    <i class="fas fa-gift text-2xl animate-bounce"></i>
+                    <span>Open Your Surprise</span>
+                    <i class="fas fa-sparkles text-amber-400"></i>
+                </span>
+            </button>
+            
+            <p class="text-xs text-gray-400 mt-4 italic">
+                (Tap the button above to start music & surprise! 🎶)
+            </p>
         </div>
-      </div>
-    </section>
+    </div>
 
-    <!-- PHOTO GALLERY SECTION -->
-    <section class="reveal">
-      <h2 class="section-title">Precious Memories</h2>
-      <div class="gallery-grid">
-        
-        <!-- Photo 1 -->
-        <div class="gallery-card glass-card" onclick="openLightbox('images/1.jpg.JPG')">
-          <div class="img-wrapper">
-            <img src="images/1.jpg.JPG" alt="Esha Photo 1" onerror="this.src='https://picsum.photos/400/500?random=1'">
-          </div>
-          <span class="caption">Sweet Moments ✨</span>
-        </div>
+    <!-- MAIN CONTENT (Initially Hidden) -->
+    <div id="main-content" class="relative z-10 hidden opacity-0 transition-opacity duration-1000 max-w-4xl mx-auto px-4 py-8 md:py-12">
 
-        <!-- Photo 2 -->
-        <div class="gallery-card glass-card" onclick="openLightbox('images/2.jpg.jpeg')">
-          <div class="img-wrapper">
-            <img src="images/2.jpg.jpeg" alt="Esha Photo 2" onerror="this.src='https://picsum.photos/400/500?random=2'">
-          </div>
-          <span class="caption">Radiant Smile 💖</span>
-        </div>
+        <!-- Header Banner -->
+        <header class="text-center mb-12 animate-float">
+            <span class="text-4xl">👑</span>
+            <h1 class="font-titleHand text-6xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-purple-500 my-2">
+                Happy Birthday Esha!
+            </h1>
+            <p class="font-serifHand text-3xl text-pink-500">To the sweetest sister in the world 💕</p>
+        </header>
 
-        <!-- Photo 3 -->
-        <div class="gallery-card glass-card" onclick="openLightbox('images/3.jpg.jpeg')">
-          <div class="img-wrapper">
-            <img src="images/3.jpg.jpeg" alt="Esha Photo 3" onerror="this.src='https://picsum.photos/400/500?random=3'">
-          </div>
-          <span class="caption">Golden Hour 🌸</span>
-        </div>
+        <!-- STEP 2: CAKE CUTTING SECTION -->
+        <section class="mb-16 text-center">
+            <div class="glass-card rounded-3xl p-6 md:p-8 max-w-md mx-auto relative overflow-hidden">
+                <h2 class="font-titleHand text-3xl text-pink-600 mb-2">Make A Wish & Cut The Cake! 🎂</h2>
+                <p id="cake-instruction" class="text-xs text-gray-500 mb-6">Tap the candles to blow them out, then cut your cake!</p>
 
-        <!-- Photo 4 -->
-        <div class="gallery-card glass-card" onclick="openLightbox('images/4.jpg.jpg')">
-          <div class="img-wrapper">
-            <img src="images/4.jpg.jpg" alt="Esha Photo 4" onerror="this.src='https://picsum.photos/400/500?random=4'">
-          </div>
-          <span class="caption">Unforgettable Times 🌺</span>
-        </div>
+                <!-- Interactive Cake -->
+                <div class="relative w-48 h-48 mx-auto my-4 flex flex-col items-center justify-end">
+                    
+                    <!-- Candles Container -->
+                    <div class="flex justify-center gap-4 z-20 mb-[-10px]">
+                        <!-- Candle 1 -->
+                        <div onclick="blowCandle(1)" id="candle-1" class="cursor-pointer flex flex-col items-center group">
+                            <div id="flame-1" class="flame w-3 h-5 bg-amber-400 rounded-full shadow-[0_0_10px_#f59e0b]"></div>
+                            <div class="w-2 h-8 bg-gradient-to-b from-pink-200 to-pink-400 rounded-t"></div>
+                        </div>
+                        <!-- Candle 2 -->
+                        <div onclick="blowCandle(2)" id="candle-2" class="cursor-pointer flex flex-col items-center group">
+                            <div id="flame-2" class="flame w-3 h-5 bg-amber-400 rounded-full shadow-[0_0_10px_#f59e0b]"></div>
+                            <div class="w-2 h-10 bg-gradient-to-b from-purple-200 to-purple-400 rounded-t"></div>
+                        </div>
+                        <!-- Candle 3 -->
+                        <div onclick="blowCandle(3)" id="candle-3" class="cursor-pointer flex flex-col items-center group">
+                            <div id="flame-3" class="flame w-3 h-5 bg-amber-400 rounded-full shadow-[0_0_10px_#f59e0b]"></div>
+                            <div class="w-2 h-8 bg-gradient-to-b from-blue-200 to-blue-400 rounded-t"></div>
+                        </div>
+                    </div>
 
-        <!-- Photo 5 -->
-        <div class="gallery-card glass-card" onclick="openLightbox('images/5.jpg.JPG')">
-          <div class="img-wrapper">
-            <img src="images/5.jpg.JPG" alt="Esha Photo 5" onerror="this.src='https://picsum.photos/400/500?random=5'">
-          </div>
-          <span class="caption">Simply Beautiful 💫</span>
-        </div>
+                    <!-- Cake Structure -->
+                    <div class="w-full relative cursor-pointer" onclick="cutCake()">
+                        <!-- Top Layer -->
+                        <div class="w-36 h-14 bg-pink-300 mx-auto rounded-t-2xl relative border-b-4 border-pink-400 shadow-inner flex items-center justify-center">
+                            <div class="absolute top-0 w-full flex justify-around">
+                                <span class="w-4 h-4 bg-white rounded-full block -mt-2"></span>
+                                <span class="w-4 h-4 bg-white rounded-full block -mt-2"></span>
+                                <span class="w-4 h-4 bg-white rounded-full block -mt-2"></span>
+                                <span class="w-4 h-4 bg-white rounded-full block -mt-2"></span>
+                            </div>
+                            <span class="text-xs text-white tracking-widest font-bold opacity-80">ESHA</span>
+                        </div>
+                        <!-- Bottom Layer -->
+                        <div class="w-48 h-16 bg-pink-200 mx-auto rounded-b-xl relative border-t-2 border-white/50 shadow-md">
+                            <div class="absolute top-2 w-full flex justify-evenly">
+                                <span class="text-xs">🌸</span>
+                                <span class="text-xs">✨</span>
+                                <span class="text-xs">💖</span>
+                                <span class="text-xs">✨</span>
+                                <span class="text-xs">🌸</span>
+                            </div>
+                        </div>
+                        <!-- Knife Overlay Animation -->
+                        <div id="knife" class="absolute top-0 right-0 text-3xl transition-all duration-500 opacity-0 pointer-events-none transform -translate-y-8 translate-x-8">
+                            🔪
+                        </div>
+                    </div>
 
-        <!-- Photo 6 -->
-        <div class="gallery-card glass-card" onclick="openLightbox('images/6.jpg.jpeg')">
-          <div class="img-wrapper">
-            <img src="images/6.jpg.jpeg" alt="Esha Photo 6" onerror="this.src='https://picsum.photos/400/500?random=6'">
-          </div>
-          <span class="caption">Pure Joy 🌷</span>
-        </div>
+                    <!-- Cake Stand -->
+                    <div class="w-56 h-3 bg-gray-200 rounded-full shadow-md"></div>
+                </div>
 
-        <!-- Photo 7 -->
-        <div class="gallery-card glass-card" onclick="openLightbox('images/7.jpg.JPG')">
-          <div class="img-wrapper">
-            <img src="images/7.jpg.JPG" alt="Esha Photo 7" onerror="this.src='https://picsum.photos/400/500?random=7'">
-          </div>
-          <span class="caption">Charming Vibes ✨</span>
-        </div>
+                <!-- Status Message -->
+                <div id="cake-status" class="mt-4 font-serifHand text-2xl text-pink-600 hidden">
+                    🎉 Yay! Wish Made & Cake Cut! 🍰
+                </div>
+            </div>
+        </section>
 
-        <!-- Photo 8 -->
-        <div class="gallery-card glass-card" onclick="openLightbox('images/8.jpg.jpg')">
-          <div class="img-wrapper">
-            <img src="images/8.jpg.jpg" alt="Esha Photo 8" onerror="this.src='https://picsum.photos/400/500?random=8'">
-          </div>
-          <span class="caption">Treasured Days 💖</span>
-        </div>
+        <!-- STEP 3: BIRTHDAY LETTER SECTION -->
+        <section class="mb-16">
+            <div class="glass-card rounded-3xl p-6 md:p-10 relative shadow-2xl border-pink-100">
+                <!-- Ribbon Tag -->
+                <div class="absolute -top-4 left-8 bg-pink-500 text-white text-xs px-4 py-1.5 rounded-full font-semibold shadow-md flex items-center gap-1">
+                    <i class="fas fa-heart"></i> A Letter For You
+                </div>
 
-        <!-- Photo 9 -->
-        <div class="gallery-card glass-card" onclick="openLightbox('images/9.jpg.JPG')">
-          <div class="img-wrapper">
-            <img src="images/9.jpg.JPG" alt="Esha Photo 9" onerror="this.src='https://picsum.photos/400/500?random=9'">
-          </div>
-          <span class="caption">Sparkle & Shine 🌟</span>
-        </div>
+                <div class="mt-4 space-y-4 text-gray-700 leading-relaxed text-base md:text-lg">
+                    <h3 class="font-titleHand text-3xl text-pink-600 mb-4">Dear Esha ❤️,</h3>
 
-        <!-- Photo 10 -->
-        <div class="gallery-card glass-card" onclick="openLightbox('images/10.jpg.JPG')">
-          <div class="img-wrapper">
-            <img src="images/10.jpg.JPG" alt="Esha Photo 10" onerror="this.src='https://picsum.photos/400/500?random=10'">
-          </div>
-          <span class="caption">Always Elegant 👑</span>
-        </div>
+                    <p class="font-medium text-pink-500 text-xl font-serifHand">Happy Birthday! 🎂💖</p>
 
-      </div>
-    </section>
+                    <p>
+                        I hope you have the happiest birthday ever and that this year brings you lots of happiness, success, good health, and beautiful memories.
+                    </p>
 
-    <!-- INTERACTIVE CAKE SECTION -->
-    <section class="reveal">
-      <h2 class="section-title">Make A Wish!</h2>
-      <div class="cake-container glass-card">
-        <p style="font-weight: 500; color: var(--text-muted);">Blow out the candle to celebrate</p>
-        <div class="cake">
-          <div class="plate"></div>
-          <div class="layer layer-bottom"></div>
-          <div class="layer layer-middle"></div>
-          <div class="layer layer-top"></div>
-          <div class="icing"></div>
-          <div class="candle" id="candle" onclick="blowCandle()">
-            <div class="flame" id="flame"></div>
-          </div>
-        </div>
-        <button class="blow-btn" onclick="blowCandle()">Blow Out Candle 🕯️</button>
-      </div>
-    </section>
+                    <p>
+                        Thank you for always being there for me. We’ve shared so many laughs, memories, and even silly fights. I’m really lucky to have you in my life.
+                    </p>
 
-    <!-- FOOTER -->
-    <footer>
-      <p>Crafted with love by Vanshika for Esha's Birthday Celebration 💕</p>
-    </footer>
+                    <p>
+                        I hope all your dreams come true and you keep smiling every single day. You truly deserve all the love and happiness in the world.
+                    </p>
 
-  </div>
+                    <p>
+                        I love you more than I say, and I’m always grateful to have a sister like you.
+                    </p>
 
-  <!-- LIGHTBOX PREVIEW MODAL -->
-  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <span class="lightbox-close">&times;</span>
-    <img class="lightbox-img" id="lightbox-img" src="" alt="Enlarged View">
-  </div>
+                    <div class="pt-6 border-t border-pink-200/60 mt-6 flex flex-col items-end">
+                        <p class="font-serifHand text-2xl text-pink-600">Happy Birthday once again! ❤️🎉</p>
+                        <p class="text-sm text-gray-500 mt-2">With lots of love,</p>
+                        <p class="font-titleHand text-2xl text-pink-600 font-bold mt-1">Your sister, Vanshika ❤️</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <!-- External JavaScript Script -->
-  <script src="script.js"></script>
+        <!-- STEP 4: MEMORIES / PHOTO GALLERY -->
+        <section class="mb-16">
+            <div class="text-center mb-8">
+                <h2 class="font-titleHand text-4xl text-pink-600">Our Precious Memories 📸</h2>
+                <p class="text-xs text-gray-500">Every moment with you is special</p>
+            </div>
+
+            <!-- Polaroid Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                
+                <!-- Memory 1 -->
+                <div class="polaroid bg-white p-4 rounded-xl -rotate-2">
+                    <div class="aspect-square bg-pink-50 rounded-lg overflow-hidden relative mb-3 group">
+                        <img src="images/1.jpg.JPG" onerror="this.onerror=null; this.src='images/1.jpg.jpeg';" alt="Memory 1" class="w-full h-full object-cover">
+                    </div>
+                    <p class="font-serifHand text-2xl text-center text-gray-700">Silly Times Together 🤪</p>
+                </div>
+
+                <!-- Memory 2 -->
+                <div class="polaroid bg-white p-4 rounded-xl rotate-3">
+                    <div class="aspect-square bg-pink-50 rounded-lg overflow-hidden relative mb-3 group">
+                        <img src="images/2.jpg.jpeg" onerror="this.onerror=null; this.src='images/2.jpg.JPG';" alt="Memory 2" class="w-full h-full object-cover">
+                    </div>
+                    <p class="font-serifHand text-2xl text-center text-gray-700">Best Sister Ever 💖</p>
+                </div>
+
+                <!-- Memory 3 -->
+                <div class="polaroid bg-white p-4 rounded-xl -rotate-1">
+                    <div class="aspect-square bg-pink-50 rounded-lg overflow-hidden relative mb-3 group">
+                        <img src="images/3.jpg.jpeg" onerror="this.onerror=null; this.src='images/3.jpg.JPG';" alt="Memory 3" class="w-full h-full object-cover">
+                    </div>
+                    <p class="font-serifHand text-2xl text-center text-gray-700">Unforgettable Smiles ✨</p>
+                </div>
+
+                <!-- Memory 4 -->
+                <div class="polaroid bg-white p-4 rounded-xl rotate-2">
+                    <div class="aspect-square bg-pink-50 rounded-lg overflow-hidden relative mb-3 group">
+                        <img src="images/4.jpg.jpg" onerror="this.onerror=null; this.src='images/4.jpg.JPG';" alt="Memory 4" class="w-full h-full object-cover">
+                    </div>
+                    <p class="font-serifHand text-2xl text-center text-gray-700">Partners in Crime 👭</p>
+                </div>
+
+                <!-- Memory 5 -->
+                <div class="polaroid bg-white p-4 rounded-xl -rotate-3">
+                    <div class="aspect-square bg-pink-50 rounded-lg overflow-hidden relative mb-3 group">
+                        <img src="images/5.jpg.JPG" onerror="this.onerror=null; this.src='images/5.jpg.jpeg';" alt="Memory 5" class="w-full h-full object-cover">
+                    </div>
+                    <p class="font-serifHand text-2xl text-center text-gray-700">Pure Happiness 🥰</p>
+                </div>
+
+                <!-- Memory 6 -->
+                <div class="polaroid bg-white p-4 rounded-xl rotate-1">
+                    <div class="aspect-square bg-pink-50 rounded-lg overflow-hidden relative mb-3 group">
+                        <img src="images/6.jpg.jpeg" onerror="this.onerror=null; this.src='images/6.jpg.JPG';" alt="Memory 6" class="w-full h-full object-cover">
+                    </div>
+                    <p class="font-serifHand text-2xl text-center text-gray-700">Forever Bond 💕</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="text-center py-8 border-t border-pink-200/50">
+            <p class="font-serifHand text-2xl text-pink-600">Made with 💖 by Vanshika for Esha</p>
+            <p class="text-xs text-gray-400 mt-1">Have the best birthday ever!</p>
+        </footer>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const audio = document.getElementById('bg-music');
+        let candlesBlown = 0;
+        let isPlaying = false;
+
+        // Play audio directly during user gesture (click)
+        function startMusicImmediately() {
+            if (!audio) return;
+            
+            try {
+                // Set audio position to 15 seconds
+                audio.currentTime = 15;
+            } catch(e) {
+                console.log("Audio seek error:", e);
+            }
+
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isPlaying = true;
+                    document.getElementById('music-control').classList.remove('hidden');
+                }).catch((err) => {
+                    console.log("Playback failed initially:", err);
+                });
+            }
+        }
+
+        // 1. Open Surprise & Play Song from 15 Seconds
+        function openSurprise() {
+            // Synchronously call music start on button tap
+            startMusicImmediately();
+
+            // Trigger Confetti
+            triggerConfetti();
+
+            // Hide Surprise Box Screen
+            const surpriseElem = document.getElementById('step-surprise');
+            surpriseElem.classList.add('opacity-0');
+            
+            setTimeout(() => {
+                surpriseElem.classList.add('hidden');
+                
+                // Show Main Content
+                const mainContent = document.getElementById('main-content');
+                mainContent.classList.remove('hidden');
+                setTimeout(() => {
+                    mainContent.classList.remove('opacity-0');
+                }, 50);
+            }, 700);
+        }
+
+        // 2. Toggle Music Play/Pause
+        function toggleMusic() {
+            const icon = document.getElementById('music-icon');
+            const text = document.getElementById('music-text');
+
+            if (isPlaying) {
+                audio.pause();
+                icon.classList.remove('fa-spin', 'fa-disc');
+                icon.classList.add('fa-play');
+                text.innerText = 'Paused';
+                isPlaying = false;
+            } else {
+                if (audio.currentTime < 1) {
+                    audio.currentTime = 15;
+                }
+                audio.play();
+                icon.classList.add('fa-spin', 'fa-disc');
+                icon.classList.remove('fa-play');
+                text.innerText = 'Playing';
+                isPlaying = true;
+            }
+        }
+
+        // 3. Candle Blow Interaction
+        function blowCandle(id) {
+            const flame = document.getElementById(`flame-${id}`);
+            if (flame && flame.style.display !== 'none') {
+                flame.style.display = 'none';
+                candlesBlown++;
+
+                confetti({
+                    particleCount: 20,
+                    spread: 40,
+                    origin: { y: 0.6 }
+                });
+
+                if (candlesBlown === 3) {
+                    document.getElementById('cake-instruction').innerText = "Now tap the cake to cut it!";
+                }
+            }
+        }
+
+        // 4. Cake Cut Interaction
+        function cutCake() {
+            const knife = document.getElementById('knife');
+            knife.style.opacity = '1';
+            knife.style.transform = 'translate(-40px, 40px) rotate(-45deg)';
+
+            setTimeout(() => {
+                triggerConfetti();
+                document.getElementById('cake-status').classList.remove('hidden');
+                document.getElementById('cake-instruction').classList.add('hidden');
+                knife.style.opacity = '0';
+            }, 600);
+        }
+
+        // 5. Confetti Function
+        function triggerConfetti() {
+            const count = 200;
+            const defaults = { origin: { y: 0.7 } };
+
+            function fire(particleRatio, opts) {
+                confetti(Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio)
+                }));
+            }
+
+            fire(0.25, { spread: 26, startVelocity: 55, colors: ['#ff85a1', '#ffb7b2'] });
+            fire(0.2, { spread: 60, colors: ['#ffffff', '#ffdac1'] });
+            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, colors: ['#e2f0cb', '#ff85a1'] });
+            fire(0.1, { spread: 120, startVelocity: 45 });
+        }
+
+        // Floating Heart Particles Generator
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 15;
+            const emojis = ['💖', '✨', '🌸', '🎂', '💕', '🎈'];
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'absolute text-xl pointer-events-none opacity-40';
+                particle.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.animation = `float ${3 + Math.random() * 4}s ease-in-out infinite`;
+                particle.style.animationDelay = Math.random() * 2 + 's';
+
+                container.appendChild(particle);
+            }
+        }
+
+        window.onload = createParticles;
+    </script>
 </body>
 </html>
