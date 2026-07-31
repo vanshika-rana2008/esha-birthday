@@ -4,53 +4,55 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Esha 🎉</title>
-  
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Audio Element -->
+  <!-- Background Audio -->
   <audio id="birthdaySong" loop preload="auto">
     <source src="music/song.mp3.mp3" type="audio/mpeg">
   </audio>
 
-  <div></div>
-  <div></div>
+  <!-- Ambient Light Effects -->
+  <div class="ambient-glow bg-primary"></div>
+  <div class="ambient-glow bg-secondary"></div>
 
-  <!-- Landing / Welcome Screen -->
-  <section id="welcome-screen">
-    <div>
-      <div></div>
+  <!-- Landing / Welcome Screen Overlay -->
+  <section class="welcome-overlay" id="welcomeOverlay">
+    <div class="welcome-card">
+      <div class="sparkle-icon">✨</div>
       <h2>A Special Surprise For</h2>
       <h1>Esha</h1>
       <p>Tap anywhere to unlock the magic ✨</p>
     </div>
   </section>
 
-  <!-- Main Content -->
-  <main>
+  <!-- Main Website Content -->
+  <main class="main-content">
 
     <!-- Celebration Banner -->
-    <section>
-      <div>
-        <span>Celebration Day</span>
-        <h1>Happy Birthday, <span>Esha</span> 🎉</h1>
+    <section class="hero-section">
+      <div class="hero-content">
+        <span class="badge">Celebration Day</span>
+        <h1>Happy Birthday, <span class="highlight">Esha</span> 🎉</h1>
         <p>Wishing you a day filled with elegance, warmth, joy, and endless love.</p>
-        <div>
+        <div class="scroll-indicator">
           <span>Scroll down to explore</span>
-          <div></div>
+          <div class="chevron"></div>
         </div>
       </div>
     </section>
 
-    <!-- Message Section -->
-    <section>
-      <div>
-        <div>👑</div>
+    <!-- Sister's Birthday Message Section -->
+    <section class="letter-section">
+      <div class="letter-card">
+        <div class="crown-badge">👑</div>
         <h2>Dear Esha ❤️</h2>
-        <div>
+        <div class="letter-body">
           <p><strong>Happy Birthday! 🎂💖</strong></p>
           <p>I hope you have the happiest birthday ever and that this year brings you lots of happiness, success, good health, and beautiful memories.</p>
           <p>Thank you for always being there for me. We’ve shared so many laughs, memories, and even silly fights. I’m really lucky to have you in my life.</p>
@@ -58,46 +60,46 @@
           <p>I love you more than I say, and I’m always grateful to have a sister like you.</p>
           <p><strong>Happy Birthday once again! ❤️🎉</strong></p>
         </div>
-        <div>
+        <div class="letter-signature">
           With lots of love,<br>
           Your sister, Vanshika ❤️
         </div>
       </div>
     </section>
 
-    <!-- Photo Gallery -->
-    <section>
+    <!-- Cherished Moments Gallery -->
+    <section class="gallery-section">
       <h2>Cherished Moments</h2>
-      <p>Tap any photo to view in full screen</p>
-      
-      <div>
-        <div><img alt="Esha Memory 1" loading="lazy" src="images/1.jpg.JPG"></div>
-        <div><img alt="Esha Memory 2" loading="lazy" src="images/2.jpg.jpeg"></div>
-        <div><img alt="Esha Memory 3" loading="lazy" src="images/3.jpg.jpeg"></div>
-        <div><img alt="Esha Memory 4" loading="lazy" src="images/4.jpg.jpg"></div>
-        <div><img alt="Esha Memory 5" loading="lazy" src="images/5.jpg.JPG"></div>
-        <div><img alt="Esha Memory 6" loading="lazy" src="images/6.jpg.jpeg"></div>
-        <div><img alt="Esha Memory 7" loading="lazy" src="images/7.jpg.JPG"></div>
-        <div><img alt="Esha Memory 8" loading="lazy" src="images/8.jpg.jpg"></div>
-        <div><img alt="Esha Memory 9" loading="lazy" src="images/9.jpg.JPG"></div>
-        <div><img alt="Esha Memory 10" loading="lazy" src="images/10.jpg.JPG"></div>
+      <p class="subtitle">Tap any photo to view in full screen</p>
+
+      <div class="gallery-grid">
+        <div class="photo-card"><img src="images/1.jpg.JPG" alt="Esha Memory 1" loading="lazy"></div>
+        <div class="photo-card"><img src="images/2.jpg.jpeg" alt="Esha Memory 2" loading="lazy"></div>
+        <div class="photo-card"><img src="images/3.jpg.jpeg" alt="Esha Memory 3" loading="lazy"></div>
+        <div class="photo-card"><img src="images/4.jpg.jpg" alt="Esha Memory 4" loading="lazy"></div>
+        <div class="photo-card"><img src="images/5.jpg.JPG" alt="Esha Memory 5" loading="lazy"></div>
+        <div class="photo-card"><img src="images/6.jpg.jpeg" alt="Esha Memory 6" loading="lazy"></div>
+        <div class="photo-card"><img src="images/7.jpg.JPG" alt="Esha Memory 7" loading="lazy"></div>
+        <div class="photo-card"><img src="images/8.jpg.jpg" alt="Esha Memory 8" loading="lazy"></div>
+        <div class="photo-card"><img src="images/9.jpg.JPG" alt="Esha Memory 9" loading="lazy"></div>
+        <div class="photo-card"><img src="images/10.jpg.JPG" alt="Esha Memory 10" loading="lazy"></div>
       </div>
     </section>
 
-    <!-- Interactive Cake Section -->
-    <section>
-      <div>
+    <!-- Interactive Cake & Wish Section -->
+    <section class="cake-section">
+      <div class="cake-container">
         <h2>Make a Wish</h2>
         <p>Tap the candle flame to blow it out!</p>
-        
-        <div>
-          <div>
-            <div>
-              <div></div>
+
+        <div class="cake-wrapper">
+          <div class="cake">
+            <div class="candle">
+              <div class="flame" id="candleFlame"></div>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <div class="top-layer"></div>
+            <div class="middle-layer"></div>
+            <div class="bottom-layer"></div>
           </div>
         </div>
       </div>
@@ -110,19 +112,29 @@
 
   </main>
 
-  <!-- Modal for full screen photo view -->
-  <div id="image-modal" style="display:none;">
-    <span>×</span>
-    <img alt="Enlarged View" src="">
+  <!-- Photo Modal View -->
+  <div class="modal" id="imageModal">
+    <span class="close-btn">&times;</span>
+    <img id="modalImg" src="" alt="Enlarged View">
   </div>
 
-  <!-- Audio start-time update script (Skipping first 15 seconds) -->
+  <!-- Audio autoplay starting at 15s + Overlay interaction handler -->
   <script>
+    const welcomeOverlay = document.getElementById('welcomeOverlay');
     const bgMusic = document.getElementById('birthdaySong');
 
     document.addEventListener('click', () => {
+      // Hide welcome overlay on first click
+      if (welcomeOverlay) {
+        welcomeOverlay.style.opacity = '0';
+        setTimeout(() => {
+          welcomeOverlay.style.display = 'none';
+        }, 500);
+      }
+
+      // Play audio from 15th second
       if (bgMusic && bgMusic.paused) {
-        bgMusic.currentTime = 15; 
+        bgMusic.currentTime = 15;
         bgMusic.play().catch(err => console.log("Audio play error:", err));
       }
     }, { once: true });
